@@ -6,8 +6,11 @@ import android.os.Bundle;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +25,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 .build();
         mAdView.loadAd(adRequest);
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 }
