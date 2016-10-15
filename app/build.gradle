@@ -17,12 +17,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        free {
+            applicationId "io.coderunner.chordmaster.free"
+        }
+        paid {
+            applicationId "io.coderunner.chordmaster.paid"
+        }
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.firebase:firebase-core:9.6.1'
-    compile 'com.google.firebase:firebase-ads:9.6.1'
+    freeCompile 'com.google.firebase:firebase-ads:9.6.1'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

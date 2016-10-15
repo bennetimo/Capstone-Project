@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("io.coderunner.chordmaster", appContext.getPackageName());
+        assertTrue("package name is expected", appContext.getPackageName().contains("io.coderunner.chordmaster"));
     }
 }
