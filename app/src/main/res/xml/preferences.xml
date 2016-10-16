@@ -4,13 +4,11 @@
         android:key="@string/pref_countdown_time_key"
         android:title="@string/pref_countdown_time"
         android:summary="@string/pref_countdown_time_summary"
-        android:defaultValue="@integer/countdown_ms"
         android:inputType="number"/>
     <EditTextPreference
         android:key="@string/pref_leadin_time_key"
         android:title="@string/pref_leadin_time"
         android:summary="@string/pref_leadin_time_summary"
-        android:defaultValue="@integer/leadin_ms"
         android:inputType="number"/>
     <EditTextPreference
         android:key="@string/pref_target_changes_key"

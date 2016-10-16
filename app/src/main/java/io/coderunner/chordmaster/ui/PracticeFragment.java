@@ -89,7 +89,8 @@ public class PracticeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Score previousBest = dataSnapshot.getValue(Score.class);
-                mTvPreviousBest.setText("(Best: " + previousBest.score + ")");
+                if(previousBest != null)
+                    mTvPreviousBest.setText("(Best: " + previousBest.score + ")");
             }
 
             @Override
