@@ -1,4 +1,4 @@
-package io.coderunner.chordmaster;
+package io.coderunner.chordmaster.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +16,11 @@ import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.coderunner.chordmaster.R;
 
 public class WelcomeFragment extends Fragment {
 
-    @BindView(R.id.button_quick_chord) Button mBtnQuickChord;
+    @BindView(R.id.btnQuickChord) Button mBtnQuickChord;
     @BindView(R.id.adView) AdView mAdView;
     private Context mContext;
 

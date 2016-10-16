@@ -1,4 +1,4 @@
-package io.coderunner.chordmaster;
+package io.coderunner.chordmaster.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.coderunner.chordmaster.R;
 
 public class PracticeFragment extends Fragment {
 

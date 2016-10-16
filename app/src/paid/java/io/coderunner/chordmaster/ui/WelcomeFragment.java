@@ -1,4 +1,4 @@
-package io.coderunner.chordmaster;
+package io.coderunner.chordmaster.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.coderunner.chordmaster.R;
 
 public class WelcomeFragment extends Fragment {
 

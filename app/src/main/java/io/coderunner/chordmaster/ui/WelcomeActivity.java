@@ -1,4 +1,4 @@
-package io.coderunner.chordmaster;
+package io.coderunner.chordmaster.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import io.coderunner.chordmaster.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
