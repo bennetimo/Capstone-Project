@@ -17,8 +17,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -33,6 +36,7 @@ public class PracticeFragment extends Fragment {
     @BindView(R.id.btnStop) Button mBtnStop;
     @BindView(R.id.tvTimeRemaining) TextView mTvTimeRemaining;
     @BindView(R.id.tvChordChange) TextView mTvChordChange;
+    @BindView(R.id.tvPreviousBest) TextView mTvPreviousBest;
     @BindInt(R.integer.countdown_ms) int mCountdownMs;
     @BindInt(R.integer.leadin_ms) int mLeadinMs;
     @BindInt(R.integer.countdown_interval_ms) int mCountdownIntervalMs;
@@ -59,10 +63,26 @@ public class PracticeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_practice, container, false);
         ButterKnife.bind(this, root);
 
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mUserId = mFirebaseUser.getUid();
+
         int totalMs = mCountdownMs + mLeadinMs;
         int totalSeconds = totalMs / 1000;
 
         mPbPractice.setMax(totalSeconds);
+
+        mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Score previousBest = dataSnapshot.getValue(Score.class);
+                mTvPreviousBest.setText("(Best: " + previousBest.score + ")");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         // Start the timer
         mPracticeTimer = new CountDownTimer(totalMs, mCountdownIntervalMs) {
@@ -96,8 +116,6 @@ public class PracticeFragment extends Fragment {
                         // Add the buttons
                         builder.setPositiveButton(R.string.dialogue_times_up_ok_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                                mUserId = mFirebaseUser.getUid();
                                 Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue(), System.currentTimeMillis());
                                 mDatabase.child("users").child(mUserId).setValue(score);
                             }

@@ -23,6 +23,13 @@
             android:textSize="@dimen/font_size_chordchange"
             android:text="@string/test_chordchange"/>
 
+        <TextView
+            android:id="@+id/tvPreviousBest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_previousbest"/>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
