@@ -10,5 +10,6 @@
     <string name="dialogue_times_up_message">How many changes did you manage?</string>
     <string name="dialogue_times_up_ok_button">OK</string>
     <string name="dialogue_times_up_cancel_button">I gave up!</string>
+    <string name="test_chordchange">E/F</string>
 
 </resources>
