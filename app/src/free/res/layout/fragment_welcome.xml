@@ -10,10 +10,29 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.coderunner.chordmaster.WelcomeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello Ads!" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_quick_chord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/ButtonStyle"
+            android:text="@string/button_quick_chord"/>
+
+        <Button
+            android:id="@+id/button_choose_chord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/ButtonStyle"
+            android:text="@string/button_choose_chord"/>
+
+    </LinearLayout>
+
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

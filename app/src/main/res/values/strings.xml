@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Chord Master</string>
+    <!-- Welcome -->
+    <string name="button_quick_chord">Quick Chord</string>
+    <string name="button_choose_chord">Choose Chord</string>
+
+    <!-- Practice -->
+    <string name="button_stop">Stop</string>
+    <string name="button_change_chord">Change Chord</string>
 </resources>
