@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -116,6 +119,10 @@ public class PracticeFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        final MediaPlayer mp = MediaPlayer.create(mContext, notification);
+                        mp.start();
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
                         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -136,11 +143,13 @@ public class PracticeFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue(), System.currentTimeMillis());
                                 mDatabase.child("users").child(mUserId).setValue(score);
+                                mp.stop();
                             }
                         });
                         builder.setNegativeButton(R.string.dialogue_times_up_cancel_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
+                                mp.stop();
                             }
                         });
 
