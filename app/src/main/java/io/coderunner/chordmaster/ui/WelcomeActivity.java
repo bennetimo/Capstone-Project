@@ -12,9 +12,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import io.coderunner.chordmaster.R;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -22,9 +19,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseUser mFirebaseUser;
-    private DatabaseReference mDatabase;
-    private String mUserId;
 
     private final String LOG_TAG = this.getClass().getSimpleName();
 
@@ -33,9 +27,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        // Initialize Firebase Services
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-        // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -52,28 +45,11 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         };
 
-        mFirebaseAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(LOG_TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
-                        if (!task.isSuccessful()) {
-                            Log.w(LOG_TAG, "signInAnonymously", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
         mFirebaseAuth.signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                    mDatabase = FirebaseDatabase.getInstance().getReference();
-                    mUserId = mFirebaseUser.getUid();
-
-                    mDatabase.child("users").child(mUserId).child("session").push().child("change").setValue("E/F");
-
+                    Log.d(LOG_TAG, "login successful as " + mFirebaseAuth.getCurrentUser().getUid());
                 } else {
                     Toast.makeText(getApplicationContext(), "Unable to login", Toast.LENGTH_LONG).show();
                 }

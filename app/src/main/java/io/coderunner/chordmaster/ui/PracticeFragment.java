@@ -15,10 +15,16 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
+import io.coderunner.chordmaster.data.Score;
 
 public class PracticeFragment extends Fragment {
 
@@ -26,6 +32,7 @@ public class PracticeFragment extends Fragment {
     @BindView(R.id.pbPractice) ProgressBar mPbPractice;
     @BindView(R.id.btnStop) Button mBtnStop;
     @BindView(R.id.tvTimeRemaining) TextView mTvTimeRemaining;
+    @BindView(R.id.tvChordChange) TextView mTvChordChange;
     @BindInt(R.integer.countdown_ms) int mCountdownMs;
     @BindInt(R.integer.leadin_ms) int mLeadinMs;
     @BindInt(R.integer.countdown_interval_ms) int mCountdownIntervalMs;
@@ -33,11 +40,17 @@ public class PracticeFragment extends Fragment {
     @BindInt(R.integer.score_picker_min_value) int mScorePickerMin;
     @BindInt(R.integer.score_picker_default_value) int mScorePickerDefault;
     private Context mContext;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private String mUserId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity().getApplicationContext();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -70,8 +83,7 @@ public class PracticeFragment extends Fragment {
                         LayoutInflater inflater = getActivity().getLayoutInflater();
                         View dialogue = inflater.inflate(R.layout.dialogue_times_up, null);
 
-
-                        NumberPicker scorePicker = (NumberPicker) dialogue.findViewById(R.id.scorePicker);
+                        final NumberPicker scorePicker = (NumberPicker) dialogue.findViewById(R.id.scorePicker);
                         scorePicker.setMaxValue(mScorePickerMax);
                         scorePicker.setMinValue(mScorePickerMin);
                         scorePicker.setValue(mScorePickerDefault);
@@ -81,11 +93,13 @@ public class PracticeFragment extends Fragment {
                         builder.setMessage(R.string.dialogue_times_up_message)
                                 .setTitle(R.string.dialogue_times_up_title);
 
-
                         // Add the buttons
                         builder.setPositiveButton(R.string.dialogue_times_up_ok_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // User clicked OK button
+                                mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                                mUserId = mFirebaseUser.getUid();
+                                Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue(), System.currentTimeMillis());
+                                mDatabase.child("users").child(mUserId).setValue(score);
                             }
                         });
                         builder.setNegativeButton(R.string.dialogue_times_up_cancel_button, new DialogInterface.OnClickListener() {
