@@ -3,8 +3,10 @@ package io.coderunner.chordmaster.ui;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindInt;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
@@ -47,6 +50,8 @@ public class PracticeFragment extends Fragment {
     @BindInt(R.integer.score_picker_max_value) int mScorePickerMax;
     @BindInt(R.integer.score_picker_min_value) int mScorePickerMin;
     @BindInt(R.integer.score_picker_default_value) int mScorePickerDefault;
+    @BindString(R.string.pref_leadin_time_key) String mLeadinTimeKey;
+    @BindString(R.string.pref_countdown_time_key) String mCountdownTimeKey;
     private Context mContext;
     private DatabaseReference mDatabase;
     private FirebaseAuth mFirebaseAuth;
@@ -68,10 +73,14 @@ public class PracticeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_practice, container, false);
         ButterKnife.bind(this, root);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs/1000)))*1000;
+        int leadinMs = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs/1000)))*1000;
+
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUserId = mFirebaseUser.getUid();
 
-        int totalMs = mCountdownMs + mLeadinMs;
+        int totalMs = countdownMs + leadinMs;
         int totalSeconds = totalMs / 1000;
 
         mPbPractice.setMax(totalSeconds);

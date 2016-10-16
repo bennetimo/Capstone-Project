@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
-        android:key="pref_leadin_time"
+        android:key="@string/pref_countdown_time_key"
+        android:title="@string/pref_countdown_time"
+        android:summary="@string/pref_countdown_time_summary"
+        android:defaultValue="@integer/countdown_ms"
+        android:inputType="number"/>
+    <EditTextPreference
+        android:key="@string/pref_leadin_time_key"
         android:title="@string/pref_leadin_time"
         android:summary="@string/pref_leadin_time_summary"
-        android:defaultValue="@integer/leadin_ms" />
+        android:defaultValue="@integer/leadin_ms"
+        android:inputType="number"/>
     <EditTextPreference
-        android:key="pref_target_changes"
+        android:key="@string/pref_target_changes_key"
         android:title="@string/pref_target_changes"
         android:summary="@string/pref_target_changes_summary"
-        android:defaultValue="@integer/target_changes" />
+        android:defaultValue="@integer/target_changes"
+        android:inputType="number"/>
 </PreferenceScreen>
