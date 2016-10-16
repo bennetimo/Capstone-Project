@@ -14,8 +14,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/pbPractice"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="250dp"
+            android:layout_height="273dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            android:max="48"
+            android:progress="45"
+            android:progressDrawable="@drawable/timer" />
+
+        <TextView
+            android:id="@+id/tvTimeRemaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <Button
-            android:id="@+id/button_stop"
+            android:id="@+id/btnStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -23,7 +39,7 @@
             android:text="@string/button_stop"/>
 
         <Button
-            android:id="@+id/button_change_chord"
+            android:id="@+id/btnChangeChord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

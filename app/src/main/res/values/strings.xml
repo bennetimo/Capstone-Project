@@ -6,4 +6,6 @@
     <!-- Practice -->
     <string name="button_stop">Stop</string>
     <string name="button_change_chord">Change Chord</string>
+    <string name="timer_expired">Time\'s Up!</string>
+
 </resources>

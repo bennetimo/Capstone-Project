@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button_quick_chord"
+            android:id="@+id/btnQuickChord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -24,7 +24,7 @@
             android:text="@string/button_quick_chord"/>
 
         <Button
-            android:id="@+id/button_choose_chord"
+            android:id="@+id/btnChooseChord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

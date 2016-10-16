@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class WelcomeFragment extends Fragment {
 
-    @BindView(R.id.button_quick_chord)
+    @BindView(R.id.btnQuickChord)
     Button mBtnQuickChord;
     private Context mContext;
 
