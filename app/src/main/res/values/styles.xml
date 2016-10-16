@@ -2,21 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="ButtonStyle" parent="@android:style/TextAppearance.Medium">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:layout_marginTop">10sp</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:minHeight">?android:attr/listPreferredItemHeight</item>
-        <item name="android:gravity">center</item>g
+        <item name="colorPrimary">@color/amber500</item>
+        <item name="colorPrimaryDark">@color/amber700</item>
+        <item name="colorAccent">@color/lightBlueA400</item>
     </style>
 
 </resources>

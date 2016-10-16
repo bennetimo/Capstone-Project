@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--Color Palettes: https://material.google.com/style/color.html#color-color-palette-->
+    <color name="amber500">#FFC107</color>
+    <color name="amber700">#FFA000</color>
+    <color name="lightBlueA400">#40C4FF</color>
 </resources>

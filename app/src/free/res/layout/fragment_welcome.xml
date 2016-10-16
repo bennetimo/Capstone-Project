@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/ButtonStyle"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:text="@string/button_quick_chord"/>
 
         <Button
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/ButtonStyle"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:text="@string/button_choose_chord"/>
 
     </LinearLayout>
