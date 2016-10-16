@@ -2,12 +2,16 @@ package io.coderunner.chordmaster.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -55,6 +59,7 @@ public class PracticeFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -143,4 +148,20 @@ public class PracticeFragment extends Fragment {
 
         return root;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_settings, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

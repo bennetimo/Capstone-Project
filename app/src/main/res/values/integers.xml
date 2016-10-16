@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Countdown Timer-->
-    <integer name="countdown_ms">5000</integer>
+    <integer name="countdown_ms">10000</integer>
     <integer name="leadin_ms">1000</integer>
+    <integer name="target_changes">60</integer>
     <!-- Timer intervals needs to be below 1000ms to ensure the last tick is fired: http://stackoverflow.com/a/12431630/5732602 -->
     <integer name="countdown_interval_ms">500</integer>
 

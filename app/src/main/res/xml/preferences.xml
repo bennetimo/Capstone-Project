@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="pref_leadin_time"
+        android:title="@string/pref_leadin_time"
+        android:summary="@string/pref_leadin_time_summary"
+        android:defaultValue="@integer/leadin_ms" />
+    <EditTextPreference
+        android:key="pref_target_changes"
+        android:title="@string/pref_target_changes"
+        android:summary="@string/pref_target_changes_summary"
+        android:defaultValue="@integer/target_changes" />
+</PreferenceScreen>
