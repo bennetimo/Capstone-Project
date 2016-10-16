@@ -16,8 +16,8 @@ import io.coderunner.chordmaster.R;
 
 public class WelcomeFragment extends Fragment {
 
-    @BindView(R.id.btnQuickChord)
-    Button mBtnQuickChord;
+    @BindView(R.id.btnQuickChord) Button mBtnQuickChord;
+    @BindView(R.id.btnChooseChord) Button mBtnChooseChord;
     private Context mContext;
 
     @Override
@@ -36,6 +36,14 @@ public class WelcomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, PracticeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mBtnChooseChord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ChordsActivity.class);
                 startActivity(intent);
             }
         });
