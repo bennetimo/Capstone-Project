@@ -12,23 +12,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/pbPractice"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="250dp"
-            android:layout_height="273dp"
-            android:layout_centerInParent="true"
-            android:indeterminate="false"
-            android:max="48"
-            android:progress="45"
-            android:progressDrawable="@drawable/timer" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvTimeRemaining"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <ProgressBar
+                android:id="@+id/pbPractice"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="250dp"
+                android:layout_height="273dp"
+                android:indeterminate="false"
+                android:layout_centerInParent="true"
+                android:progressDrawable="@drawable/timer" />
+
+            <TextView
+                android:id="@+id/tvTimeRemaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="@dimen/font_size_countdown"/>
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btnStop"

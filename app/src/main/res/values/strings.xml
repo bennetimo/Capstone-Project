@@ -6,6 +6,9 @@
     <!-- Practice -->
     <string name="button_stop">Stop</string>
     <string name="button_change_chord">Change Chord</string>
-    <string name="timer_expired">Time\'s Up!</string>
+    <string name="dialogue_times_up_title">Time\'s Up!</string>
+    <string name="dialogue_times_up_message">How many changes did you manage?</string>
+    <string name="dialogue_times_up_ok_button">OK</string>
+    <string name="dialogue_times_up_cancel_button">I gave up!</string>
 
 </resources>
