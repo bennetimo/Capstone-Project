@@ -12,6 +12,13 @@
     <string name="dialogue_times_up_cancel_button">I gave up!</string>
     <string name="test_chordchange">E/F</string>
 
+    <!-- Chords -->
+    <string name="dialogue_add_chord_title">Add Chord</string>
+    <string name="dialogue_add_chord_content">Enter name of chord:</string>
+    <string name="dialogue_add_chord_hint">Am</string>
+    <string name="dialogue_add_chord_prefill"></string>
+    <string name="dialogue_error_chord_exists">You already have that chord!</string>
+
     <!-- Action Strings-->
     <string name="action_settings">Settings</string>
 

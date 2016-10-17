@@ -2,6 +2,7 @@ package io.coderunner.chordmaster.ui;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -11,12 +12,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +44,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity().getApplicationContext();
+        mContext = getActivity();
         setHasOptionsMenu(true);
         mCursorAdapter = new ChordsCursorAdapter(getActivity(), null);
     }
@@ -51,6 +57,38 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         mRecyclerViewChords.setLayoutManager(new LinearLayoutManager(getActivity()));
         getLoaderManager().initLoader(0, null, this);
         mRecyclerViewChords.setAdapter(mCursorAdapter);
+
+        mFabAddChord.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                new MaterialDialog.Builder(mContext).title(R.string.dialogue_add_chord_title)
+                    .content(R.string.dialogue_add_chord_content)
+                    .inputType(InputType.TYPE_CLASS_TEXT)
+                    .input(R.string.dialogue_add_chord_hint, R.string.dialogue_add_chord_prefill, new MaterialDialog.InputCallback() {
+                        @Override public void onInput(MaterialDialog dialog, CharSequence input) {
+                            // Check if the chord exists, if it doesn't, add it
+                            Cursor c = getActivity().getContentResolver().query(ChordsProvider.Chords.CHORDS_URI,
+                                    new String[] { ChordsColumns.NAME }, ChordsColumns.NAME + "= ?",
+                                    new String[] { input.toString() }, null);
+                            if (c.getCount() != 0) {
+                                Toast toast =
+                                        Toast.makeText(getActivity(), getActivity().getString(R.string.dialogue_error_chord_exists),
+                                                Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+                                toast.show();
+                                return;
+                            } else {
+                                // Add the chord to the DB
+                                ContentValues contentValues = new ContentValues();
+                                contentValues.put(ChordsColumns.NAME, input.toString());
+                                contentValues.put(ChordsColumns.TYPE, "Major");
+                                getActivity().getContentResolver().insert(ChordsProvider.Chords.CHORDS_URI, contentValues);
+                            }
+                        }
+                    })
+                    .show();
+
+            }
+        });
         return root;
     }
 
