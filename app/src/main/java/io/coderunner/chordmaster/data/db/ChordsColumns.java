@@ -9,17 +9,15 @@ import net.simonvt.schematic.annotation.PrimaryKey;
 import static net.simonvt.schematic.annotation.DataType.Type.INTEGER;
 import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
-public interface BestChordsColumns {
+public interface ChordsColumns {
 
     @DataType(INTEGER) @PrimaryKey @AutoIncrement
     String _ID = "_id";
 
     @DataType(TEXT) @NotNull
-    String CHORD1 = "chord1";
+    String NAME = "name";
 
     @DataType(TEXT) @NotNull
-    String CHORD2 = "chord2";
+    String TYPE = "type";
 
-    @DataType(INTEGER) @NotNull
-    String SCORE = "score";
 }

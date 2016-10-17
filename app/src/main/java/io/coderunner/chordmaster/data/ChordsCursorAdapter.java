@@ -10,26 +10,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import io.coderunner.chordmaster.R;
-import io.coderunner.chordmaster.data.db.BestChordsColumns;
+import io.coderunner.chordmaster.data.db.ChordsColumns;
 
 /**
  *  Credit to skyfishjy gist:
  *    https://gist.github.com/skyfishjy/443b7448f59be978bc59
  * for the code structure
  */
-public class BestCursorAdapter extends CursorRecyclerViewAdapter<BestCursorAdapter.ViewHolder> {
+public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorAdapter.ViewHolder> {
 
     private static Context mContext;
     private static Typeface robotoLight;
-    private boolean isPercent;
-    public BestCursorAdapter(Context context, Cursor cursor){
+    public ChordsCursorAdapter(Context context, Cursor cursor){
         super(context, cursor);
         mContext = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        //robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
+        robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
         ViewHolder vh = new ViewHolder(itemView);
@@ -38,33 +37,29 @@ public class BestCursorAdapter extends CursorRecyclerViewAdapter<BestCursorAdapt
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor){
-        String chord1 = cursor.getString(cursor.getColumnIndex(BestChordsColumns.CHORD1));
-        String chord2 = cursor.getString(cursor.getColumnIndex(BestChordsColumns.CHORD2));
-        viewHolder.chordpair.setText(chord1 + "/" + chord2);
+        String chordName = cursor.getString(cursor.getColumnIndex(ChordsColumns.NAME));
+        String chordType = cursor.getString(cursor.getColumnIndex(ChordsColumns.TYPE));
+        viewHolder.chordName.setText(chordName);
+        viewHolder.chordType.setText(chordType);
     }
 
     @Override public int getItemCount() {
         return super.getItemCount();
     }
 
-    public int getBestID(int position) {
-        Cursor c = getCursor();
-        c.moveToPosition(position);
-        return c.getInt(c.getColumnIndex(BestChordsColumns._ID));
-    }
-
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener{
-        public final TextView chordpair;
+        public final TextView chordName;
+        public final TextView chordType;
         public ViewHolder(View itemView){
             super(itemView);
-            chordpair = (TextView) itemView.findViewById(R.id.chordpair);
-            //chordpair.setTypeface(robotoLight);
+            chordName = (TextView) itemView.findViewById(R.id.chordName);
+            chordType = (TextView) itemView.findViewById(R.id.chordType);
+            chordName.setTypeface(robotoLight);
+            chordType.setTypeface(robotoLight);
         }
 
         @Override
-        public void onClick(View v) {
-
-        }
+        public void onClick(View v) {}
     }
 }

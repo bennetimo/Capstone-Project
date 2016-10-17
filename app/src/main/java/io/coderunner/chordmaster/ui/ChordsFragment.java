@@ -21,9 +21,9 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
-import io.coderunner.chordmaster.data.BestCursorAdapter;
-import io.coderunner.chordmaster.data.db.BestChordsColumns;
-import io.coderunner.chordmaster.data.db.BestChordsProvider;
+import io.coderunner.chordmaster.data.ChordsCursorAdapter;
+import io.coderunner.chordmaster.data.db.ChordsColumns;
+import io.coderunner.chordmaster.data.db.ChordsProvider;
 
 public class ChordsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -32,7 +32,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     RecyclerView mRecyclerViewChords;
     private Context mContext;
 
-    private BestCursorAdapter mCursorAdapter;
+    private ChordsCursorAdapter mCursorAdapter;
     private Cursor mCursor;
 
     @Override
@@ -40,7 +40,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         super.onCreate(savedInstanceState);
         mContext = getActivity().getApplicationContext();
         setHasOptionsMenu(true);
-        mCursorAdapter = new BestCursorAdapter(getActivity(), null);
+        mCursorAdapter = new ChordsCursorAdapter(getActivity(), null);
     }
 
     @Override
@@ -71,8 +71,8 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args){
-        return new android.content.CursorLoader(getActivity().getBaseContext(), BestChordsProvider.Best.BEST,
-                new String[]{BestChordsColumns._ID, BestChordsColumns.SCORE, BestChordsColumns.CHORD1, BestChordsColumns.CHORD2}, null, null, null);
+        return new android.content.CursorLoader(getActivity().getBaseContext(), ChordsProvider.Chords.CHORDS_URI,
+                new String[]{ChordsColumns._ID, ChordsColumns.NAME, ChordsColumns.TYPE}, null, null, null);
     }
 
     @Override

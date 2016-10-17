@@ -35,8 +35,8 @@
         </activity>
 
         <provider
-            android:name="io.coderunner.chordmaster.provider.BestChordsProvider"
-            android:authorities="@string/content_authority_best"
+            android:name="io.coderunner.chordmaster.provider.ChordsProvider"
+            android:authorities="@string/content_authority_chords"
             android:exported="false" />
     </application>
 

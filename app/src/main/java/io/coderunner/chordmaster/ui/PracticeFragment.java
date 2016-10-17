@@ -40,7 +40,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.Score;
-import io.coderunner.chordmaster.data.db.BestChordsProvider;
 
 public class PracticeFragment extends Fragment {
 
@@ -146,12 +145,6 @@ public class PracticeFragment extends Fragment {
                                 Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue(), System.currentTimeMillis());
                                 mDatabase.child("users").child(mUserId).setValue(score);
                                 mp.stop();
-
-                                ContentValues contentValues = new ContentValues();
-                                contentValues.put("chord1", score.change);
-                                contentValues.put("chord2", score.change);
-                                contentValues.put("score", score.score);
-                                Uri uri = getActivity().getContentResolver().insert(BestChordsProvider.Best.BEST, contentValues);
                             }
                         });
                         builder.setNegativeButton(R.string.dialogue_times_up_cancel_button, new DialogInterface.OnClickListener() {
