@@ -26,4 +26,7 @@
     <string name="pref_target_changes">Target Changes</string>
     <string name="pref_target_changes_summary">How many changes to complete before this chord change is fast enough</string>
 
+    <!-- Content Authorities -->
+    <string name="content_authority_best">io.coderunner.chordmaster.provider.BestChordsProvider</string>
+
 </resources>

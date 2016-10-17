@@ -1,32 +1,46 @@
 package io.coderunner.chordmaster.ui;
 
+import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.Loader;
+import android.database.Cursor;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.design.widget.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
+import io.coderunner.chordmaster.data.BestCursorAdapter;
+import io.coderunner.chordmaster.data.db.BestChordsColumns;
+import io.coderunner.chordmaster.data.db.BestChordsProvider;
 
-public class ChordsFragment extends Fragment {
+public class ChordsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @BindView(R.id.fab_add_chord) FloatingActionButton mFabAddChord;
+    @BindView(R.id.recyclerview_chords)
+    RecyclerView mRecyclerViewChords;
     private Context mContext;
+
+    private BestCursorAdapter mCursorAdapter;
+    private Cursor mCursor;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity().getApplicationContext();
         setHasOptionsMenu(true);
+        mCursorAdapter = new BestCursorAdapter(getActivity(), null);
     }
 
     @Override
@@ -34,6 +48,9 @@ public class ChordsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_chords, container, false);
         ButterKnife.bind(this, root);
+        mRecyclerViewChords.setLayoutManager(new LinearLayoutManager(getActivity()));
+        getLoaderManager().initLoader(0, null, this);
+        mRecyclerViewChords.setAdapter(mCursorAdapter);
         return root;
     }
 
@@ -52,4 +69,20 @@ public class ChordsFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args){
+        return new android.content.CursorLoader(getActivity().getBaseContext(), BestChordsProvider.Best.BEST,
+                new String[]{BestChordsColumns._ID, BestChordsColumns.SCORE, BestChordsColumns.CHORD1, BestChordsColumns.CHORD2}, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data){
+        mCursorAdapter.swapCursor(data);
+        mCursor = data;
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader){
+        mCursorAdapter.swapCursor(null);
+    }
 }
