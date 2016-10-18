@@ -91,6 +91,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new WelcomeFragment(), "Start");
         adapter.addFragment(new PracticeFragment(), "Practice");
         adapter.addFragment(new PracticeFragment(), "History");
         adapter.addFragment(new ChordsFragment(), "Chords");

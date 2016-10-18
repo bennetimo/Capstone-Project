@@ -45,22 +45,6 @@ public class WelcomeFragment extends Fragment {
                 .build();
         mAdView.loadAd(adRequest);
 
-        mBtnQuickChord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, PracticeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mBtnChooseChord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, ChordsActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return root;
     }
 }
