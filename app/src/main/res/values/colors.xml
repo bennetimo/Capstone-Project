@@ -4,4 +4,6 @@
     <color name="amber500">#FFC107</color>
     <color name="amber700">#FFA000</color>
     <color name="lightBlueA400">#40C4FF</color>
+
+    <color name="background">#d7dcde</color>
 </resources>

@@ -1,6 +1,5 @@
 package io.coderunner.chordmaster.ui;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;

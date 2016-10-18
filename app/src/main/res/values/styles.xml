@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/amber500</item>
         <item name="colorPrimaryDark">@color/amber700</item>
         <item name="colorAccent">@color/lightBlueA400</item>

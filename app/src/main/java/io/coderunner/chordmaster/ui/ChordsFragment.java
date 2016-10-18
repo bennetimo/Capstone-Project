@@ -1,15 +1,15 @@
 package io.coderunner.chordmaster.ui;
 
-import android.app.Fragment;
-import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -38,6 +38,8 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     RecyclerView mRecyclerViewChords;
     private Context mContext;
 
+    private static final int LOADER_ID = 0;
+
     private ChordsCursorAdapter mCursorAdapter;
     private Cursor mCursor;
 
@@ -55,7 +57,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         View root = inflater.inflate(R.layout.fragment_chords, container, false);
         ButterKnife.bind(this, root);
         mRecyclerViewChords.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
         mRecyclerViewChords.setAdapter(mCursorAdapter);
 
         mFabAddChord.setOnClickListener(new View.OnClickListener() {
@@ -108,19 +110,20 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args){
-        return new android.content.CursorLoader(getActivity().getBaseContext(), ChordsProvider.Chords.CHORDS_URI,
+    public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity().getBaseContext(), ChordsProvider.Chords.CHORDS_URI,
                 new String[]{ChordsColumns._ID, ChordsColumns.NAME, ChordsColumns.TYPE}, null, null, null);
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data){
+    public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
         mCursor = data;
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader){
+    public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);
     }
+
 }
