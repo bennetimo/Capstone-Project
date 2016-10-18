@@ -92,7 +92,7 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity().getBaseContext(), ChordsProvider.Chords.CHORDS_URI,
-                new String[]{ChordsColumns._ID, ChordsColumns.NAME, ChordsColumns.TYPE}, null, null, null);
+                new String[]{ChordsColumns._ID, ChordsColumns.NAME}, null, null, null);
     }
 
     @Override

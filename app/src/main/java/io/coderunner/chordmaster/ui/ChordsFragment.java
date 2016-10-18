@@ -77,7 +77,6 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
                                 // Add the chord to the DB
                                 ContentValues contentValues = new ContentValues();
                                 contentValues.put(ChordsColumns.NAME, input.toString());
-                                contentValues.put(ChordsColumns.TYPE, "Major");
                                 getActivity().getContentResolver().insert(ChordsProvider.Chords.CHORDS_URI, contentValues);
                             }
                         }
@@ -92,7 +91,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity().getBaseContext(), ChordsProvider.Chords.CHORDS_URI,
-                new String[]{ChordsColumns._ID, ChordsColumns.NAME, ChordsColumns.TYPE}, null, null, null);
+                new String[]{ChordsColumns._ID, ChordsColumns.NAME}, null, null, null);
     }
 
     @Override

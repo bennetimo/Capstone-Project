@@ -38,9 +38,7 @@ public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorA
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor){
         String chordName = cursor.getString(cursor.getColumnIndex(ChordsColumns.NAME));
-        String chordType = cursor.getString(cursor.getColumnIndex(ChordsColumns.TYPE));
         viewHolder.chordName.setText(chordName);
-        viewHolder.chordType.setText(chordType);
     }
 
     @Override public int getItemCount() {
@@ -50,13 +48,10 @@ public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorA
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener{
         public final TextView chordName;
-        public final TextView chordType;
         public ViewHolder(View itemView){
             super(itemView);
             chordName = (TextView) itemView.findViewById(R.id.chordName);
-            chordType = (TextView) itemView.findViewById(R.id.chordType);
             chordName.setTypeface(robotoLight);
-            chordType.setTypeface(robotoLight);
         }
 
         @Override

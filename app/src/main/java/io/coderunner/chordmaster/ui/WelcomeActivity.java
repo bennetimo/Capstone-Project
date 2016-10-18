@@ -43,6 +43,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private final String LOG_TAG = this.getClass().getSimpleName();
 
+    public static String[] PRELOADED_CHORDS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
+
+        PRELOADED_CHORDS = getResources().getStringArray(R.array.preloaded_chords);
 
         // Initialize Firebase Services
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

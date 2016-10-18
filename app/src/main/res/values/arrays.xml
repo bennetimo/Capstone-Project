@@ -1,0 +1,22 @@
+<resources>
+    <string-array name="preloaded_chords">
+        <item>D</item>
+        <item>A</item>
+        <item>E</item>
+        <item>Am</item>
+        <item>Em</item>
+        <item>Dm</item>
+        <item>G</item>
+        <item>C</item>
+        <item>G7</item>
+        <item>C7</item>
+        <item>B7</item>
+        <item>Fmaj7</item>
+        <item>A7</item>
+        <item>D7</item>
+        <item>E7</item>
+        <item>F</item>
+        <item>Asus4</item>
+        <item>Asus2</item>
+    </string-array>
+</resources>

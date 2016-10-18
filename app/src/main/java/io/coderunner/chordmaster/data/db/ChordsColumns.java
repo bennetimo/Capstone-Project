@@ -17,7 +17,4 @@ public interface ChordsColumns {
     @DataType(TEXT) @NotNull
     String NAME = "name";
 
-    @DataType(TEXT) @NotNull
-    String TYPE = "type";
-
 }
