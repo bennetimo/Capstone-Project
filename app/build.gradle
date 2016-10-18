@@ -46,6 +46,7 @@ dependencies {
     apt 'net.simonvt.schematic:schematic-compiler:0.6.7'
     compile 'net.simonvt.schematic:schematic:0.6.7'
     compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     testCompile 'junit:junit:4.12'
 }
 

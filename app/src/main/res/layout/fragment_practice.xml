@@ -20,8 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/font_size_chordchange"
-            android:text="@string/test_chordchange"/>
+            android:textSize="@dimen/font_size_chordchange"/>
 
         <TextView
             android:id="@+id/tvPreviousBest"
@@ -54,20 +53,20 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btnStop"
+            android:id="@+id/btnPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:text="@string/button_stop"/>
+            android:text="@string/button_pause"/>
 
         <Button
-            android:id="@+id/btnChangeChord"
+            android:id="@+id/btnResume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:text="@string/button_change_chord"/>
+            android:text="@string/button_resume"/>
 
     </LinearLayout>
 </RelativeLayout>

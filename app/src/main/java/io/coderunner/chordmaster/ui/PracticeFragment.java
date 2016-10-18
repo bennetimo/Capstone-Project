@@ -15,9 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,7 +41,7 @@ public class PracticeFragment extends Fragment {
 
     private CountDownTimer mPracticeTimer;
     @BindView(R.id.pbPractice) ProgressBar mPbPractice;
-    @BindView(R.id.btnStop) Button mBtnStop;
+    @BindView(R.id.btnPause) Button mBtnStop;
     @BindView(R.id.tvTimeRemaining) TextView mTvTimeRemaining;
     @BindView(R.id.tvChordChange) TextView mTvChordChange;
     @BindView(R.id.tvPreviousBest) TextView mTvPreviousBest;
@@ -62,6 +59,8 @@ public class PracticeFragment extends Fragment {
     private FirebaseUser mFirebaseUser;
     private String mUserId;
 
+    private String chordPair;
+
     private final String LOG_TAG = this.getClass().getSimpleName();
 
     @Override
@@ -70,6 +69,7 @@ public class PracticeFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        chordPair = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
     }
 
     @Override
@@ -77,6 +77,8 @@ public class PracticeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_practice, container, false);
         ButterKnife.bind(this, root);
+
+        mTvChordChange.setText(chordPair);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs/1000)))*1000;
