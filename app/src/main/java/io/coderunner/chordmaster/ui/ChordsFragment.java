@@ -47,7 +47,6 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
-        setHasOptionsMenu(true);
         mCursorAdapter = new ChordsCursorAdapter(getActivity(), null);
     }
 
@@ -92,21 +91,6 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
             }
         });
         return root;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_settings, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_settings:
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

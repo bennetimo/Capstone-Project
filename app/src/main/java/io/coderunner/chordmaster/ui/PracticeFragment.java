@@ -70,7 +70,6 @@ public class PracticeFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -169,21 +168,6 @@ public class PracticeFragment extends Fragment {
         });
 
         return root;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_settings, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_settings:
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
