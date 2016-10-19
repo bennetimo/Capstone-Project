@@ -7,4 +7,11 @@
         <item name="colorAccent">@color/lightBlueA400</item>
     </style>
 
+    <style name="FAB">
+        <item name="android:layout_margin">0dp</item>
+        <item name="fabSize">normal</item>
+        <item name="rippleColor">@android:color/white</item>
+        <item name="backgroundTint">?colorPrimary</item>
+    </style>
+
 </resources>
