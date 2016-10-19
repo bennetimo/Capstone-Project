@@ -35,7 +35,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
-import io.coderunner.chordmaster.data.Score;
+import io.coderunner.chordmaster.data.model.Score;
 
 public class PracticeFragment extends Fragment {
 
@@ -142,7 +142,7 @@ public class PracticeFragment extends Fragment {
                         // Add the buttons
                         builder.setPositiveButton(R.string.dialogue_times_up_ok_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue(), System.currentTimeMillis());
+                                Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue());
                                 mDatabase.child("users").child(mUserId).setValue(score);
                                 mp.stop();
                             }
