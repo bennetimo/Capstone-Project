@@ -27,14 +27,14 @@ import io.coderunner.chordmaster.data.ChordsCursorAdapter;
 import io.coderunner.chordmaster.data.db.ChordsColumns;
 import io.coderunner.chordmaster.data.db.ChordsProvider;
 
+import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_CHORDS;
+
 public class ChordsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @BindView(R.id.fab_add_chord) FloatingActionButton mFabAddChord;
     @BindView(R.id.recyclerview_chords)
     RecyclerView mRecyclerViewChords;
     private Context mContext;
-
-    private static final int LOADER_ID = 0;
 
     private ChordsCursorAdapter mCursorAdapter;
     private Cursor mCursor;
@@ -52,7 +52,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         View root = inflater.inflate(R.layout.fragment_chords, container, false);
         ButterKnife.bind(this, root);
         mRecyclerViewChords.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        getLoaderManager().initLoader(LOADER_ID_FRAG_CHORDS, null, this);
         mRecyclerViewChords.setAdapter(mCursorAdapter);
 
         mFabAddChord.setOnClickListener(new View.OnClickListener() {

@@ -17,6 +17,7 @@ import com.aigestudio.wheelpicker.WheelPicker;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -25,15 +26,19 @@ import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.db.ChordsColumns;
 import io.coderunner.chordmaster.data.db.ChordsProvider;
 
-public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>  {
+import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_WELCOME;
 
-    @BindView(R.id.chord1) WheelPicker picker;
-    @BindView(R.id.chord2) WheelPicker picker2;
-    @BindView(R.id.btnChooseChord) Button mBtnChooseChord;
-    @BindView(R.id.adView) AdView mAdView;
+public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    @BindView(R.id.chord1)
+    WheelPicker firstChordPicker;
+    @BindView(R.id.chord2)
+    WheelPicker secondChordPicker;
+    @BindView(R.id.btnChooseChord)
+    Button mBtnChooseChord;
+    @BindView(R.id.adView)
+    AdView mAdView;
     private Context mContext;
-
-    private ArrayList<String> chords = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,38 +60,30 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
                 .build();
         mAdView.loadAd(adRequest);
 
-        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().initLoader(LOADER_ID_FRAG_WELCOME, null, this);
 
-        ArrayList<String> choices = new ArrayList<>(1);
-        choices.add(" ");
-
-        picker.setAtmospheric(true);
-        picker.setData(choices); //Avoid the sample data being displayed
-        picker.setCurved(true);
-        picker.setVisibleItemCount(5);
-        picker.setCyclic(true);
-        picker.setSelectedItemTextColor(R.color.lightBlueA400);
-
-        picker2.setAtmospheric(true);
-        picker2.setData(choices); //Avoid the sample data being displayed
-        picker2.setCurved(true);
-        picker2.setVisibleItemCount(5);
-        picker2.setCyclic(true);
-        picker2.setSelectedItemTextColor(R.color.lightBlueA400);
+        initWheelPicker(firstChordPicker);
+        initWheelPicker(secondChordPicker);
 
         mBtnChooseChord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int chord1 = picker.getCurrentItemPosition();
-                int chord2 = picker2.getCurrentItemPosition();
-                String c1 = chords.get(chord1);
-                String c2 = chords.get(chord2);
-                Intent intent = new Intent(mContext, PracticeActivity.class).putExtra(Intent.EXTRA_TEXT, c1 + "/" + c2);
+                String firstChord = (String) firstChordPicker.getData().get(firstChordPicker.getCurrentItemPosition());
+                String secondChord = (String) secondChordPicker.getData().get(secondChordPicker.getCurrentItemPosition());
+                Intent intent = new Intent(mContext, PracticeActivity.class).putExtra(Intent.EXTRA_TEXT, firstChord + "/" + secondChord);
                 startActivity(intent);
             }
         });
 
         return root;
+    }
+
+    private void initWheelPicker(WheelPicker picker) {
+        picker.setAtmospheric(true);
+        picker.setCurved(true);
+        picker.setVisibleItemCount(5);
+        picker.setCyclic(true);
+        picker.setSelectedItemTextColor(R.color.lightBlueA400);
     }
 
     @Override
@@ -97,12 +94,18 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
-        chords.clear();
-        while(data.moveToNext()) {
-            chords.add(data.getString(data.getColumnIndex(ChordsColumns.NAME)));
+        // Make sure that the wheel picker always has at least one element, to avoid a divide by zero
+        // error when using cyclic mode at this line:
+        // https://github.com/AigeStudio/WheelPicker/blob/110102b4834f919085d52143dd9440c7d77f2abe/WheelPicker/src/main/java/com/aigestudio/wheelpicker/WheelPicker.java#L533
+        if (data.getCount() > 0) {
+            ArrayList<String> swap = new ArrayList<>();
+            data.moveToFirst();
+            while (data.moveToNext()) {
+                swap.add(data.getString(data.getColumnIndex(ChordsColumns.NAME)));
+            }
+            firstChordPicker.setData(swap);
+            secondChordPicker.setData(swap);
         }
-        picker.setData(chords);
-        picker2.setData(chords);
     }
 
     @Override

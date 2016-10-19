@@ -33,14 +33,14 @@
                 android:id="@+id/chord1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ads:wheel_data="@array/WheelArrayWeek"
+                ads:wheel_data="@array/preloaded_chords"
                 android:layout_weight="1"/>
 
             <com.aigestudio.wheelpicker.WheelPicker
                 android:id="@+id/chord2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ads:wheel_data="@array/WheelArrayWeek"
+                ads:wheel_data="@array/preloaded_chords"
                 android:layout_weight="1"/>
 
         </LinearLayout>
