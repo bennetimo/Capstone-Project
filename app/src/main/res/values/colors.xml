@@ -6,4 +6,5 @@
     <color name="lightBlueA400">#40C4FF</color>
 
     <color name="background">#d7dcde</color>
+    <color name="light_black">#747474</color>
 </resources>

@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "io.coderunner.chordmaster"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -38,23 +38,33 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Firebase
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-database:9.6.1'
     compile 'com.google.firebase:firebase-auth:9.6.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.firebaseui:firebase-ui:0.6.1'
     freeCompile 'com.google.firebase:firebase-ads:9.6.1'
+
+    // Android
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+
+    // Third Party Libraries
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    apt 'net.simonvt.schematic:schematic-compiler:0.6.7'
+    compile 'net.simonvt.schematic:schematic:0.6.7'
+
+    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
+    compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+
+    // Test Dependencies
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.firebase:firebase-client-android:2.4.0'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    apt 'net.simonvt.schematic:schematic-compiler:0.6.7'
-    compile 'net.simonvt.schematic:schematic:0.6.7'
-    compile 'com.facebook.stetho:stetho:1.4.1'
-    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     testCompile 'junit:junit:4.12'
 }
 

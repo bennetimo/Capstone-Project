@@ -36,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.model.Score;
+import io.coderunner.chordmaster.util.Constants;
 
 public class PracticeFragment extends Fragment {
 
@@ -142,8 +143,7 @@ public class PracticeFragment extends Fragment {
                         // Add the buttons
                         builder.setPositiveButton(R.string.dialogue_times_up_ok_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Score score = new Score(mTvChordChange.getText().toString(), scorePicker.getValue());
-                                mDatabase.child("users").child(mUserId).setValue(score);
+                                addScore(scorePicker.getValue());
                                 mp.stop();
                             }
                         });
@@ -179,5 +179,13 @@ public class PracticeFragment extends Fragment {
             Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
             mPracticeTimer.cancel();
         }
+    }
+
+    public void addScore(int score) {
+        String chordPair = mTvChordChange.getText().toString();
+
+        DatabaseReference newScoreRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES).push();
+        Score newScore = new Score(chordPair, score);
+        newScoreRef.setValue(newScore);
     }
 }

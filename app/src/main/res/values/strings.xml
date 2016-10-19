@@ -19,6 +19,9 @@
     <string name="dialogue_add_chord_prefill"></string>
     <string name="dialogue_error_chord_exists">You already have that chord!</string>
 
+    <!-- History -->
+    <string name="history_changes_label">Changes: </string>
+
     <!-- Action Strings-->
     <string name="action_settings">Settings</string>
 

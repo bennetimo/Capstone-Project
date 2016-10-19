@@ -30,7 +30,7 @@ public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorA
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
+                .inflate(R.layout.list_item_chord, parent, false);
         ViewHolder vh = new ViewHolder(itemView);
         return vh;
     }
