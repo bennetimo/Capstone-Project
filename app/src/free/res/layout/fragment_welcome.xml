@@ -10,51 +10,99 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.coderunner.chordmaster.ui.WelcomeFragment">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card_view2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        android:layout_margin="5dp">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/label_choose_chords"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/label_choose_chords"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/label_choose_chords"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/amber300"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/label_choose_chords" />
 
-            <com.aigestudio.wheelpicker.WheelPicker
-                android:id="@+id/chord1"
+            <LinearLayout
+                android:id="@+id/chord_pickers"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_below="@id/label_choose_chords"
+                android:orientation="horizontal">
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/chord1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    ads:wheel_data="@array/preloaded_chords"
+                    android:backgroundTint="@color/light_black"
+                    android:layout_weight="1"/>
+
+                <com.aigestudio.wheelpicker.WheelPicker
+                    android:id="@+id/chord2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    ads:wheel_data="@array/preloaded_chords"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/label_chord_2"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ads:wheel_data="@array/preloaded_chords"
-                android:layout_weight="1"/>
+                android:gravity="center"
+                android:textColor="@color/background"
+                android:textSize="20sp"
+                android:text="@string/label_chord_2"
+                android:layout_below="@+id/chord_pickers"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="44dp"
+                android:layout_marginEnd="44dp" />
 
-            <com.aigestudio.wheelpicker.WheelPicker
-                android:id="@+id/chord2"
+            <TextView
+                android:id="@+id/label_chord_1"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ads:wheel_data="@array/preloaded_chords"
-                android:layout_weight="1"/>
+                android:gravity="center"
+                android:textColor="@color/background"
+                android:textSize="20sp"
+                android:text="@string/label_chord_1"
+                android:layout_below="@+id/chord_pickers"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="43dp"
+                android:layout_marginStart="43dp" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btnChooseChord"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
 
-        <Button
-            android:id="@+id/btnChooseChord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:text="@string/button_choose_chord"/>
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:text="@string/button_choose_chord"
+                android:layout_below="@+id/label_chord_1"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"/>
 
-    </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

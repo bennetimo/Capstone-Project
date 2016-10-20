@@ -5,6 +5,7 @@
     <dimen name="font_size_countdown">32sp</dimen>
     <dimen name="font_size_chordchange">48sp</dimen>
     <dimen name="font_size_previousbest">12sp</dimen>
+    <dimen name="font_size_card_title">20sp</dimen>
 
     <dimen name="margin_small">16dp</dimen>
     <dimen name="list_item_text_size">16.6sp</dimen>

@@ -3,6 +3,8 @@
     <string name="button_quick_chord">Quick Chord</string>
     <string name="button_choose_chord">Play</string>
     <string name="label_choose_chords">Pick Chords</string>
+    <string name="label_chord_1">Chord #1</string>
+    <string name="label_chord_2">Chord #2</string>
 
     <!-- Practice -->
     <string name="button_pause">Pause</string>

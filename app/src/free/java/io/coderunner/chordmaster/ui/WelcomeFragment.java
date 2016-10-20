@@ -81,7 +81,7 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
     private void initWheelPicker(WheelPicker picker) {
         picker.setAtmospheric(true);
         picker.setCurved(true);
-        picker.setVisibleItemCount(5);
+        picker.setVisibleItemCount(7);
         picker.setCyclic(true);
         picker.setSelectedItemTextColor(R.color.lightBlueA400);
     }

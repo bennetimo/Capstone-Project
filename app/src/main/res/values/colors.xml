@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Color Palettes: https://material.google.com/style/color.html#color-color-palette-->
+    <color name="amber300">#FFD54F</color>
     <color name="amber500">#FFC107</color>
     <color name="amber700">#FFA000</color>
     <color name="lightBlueA400">#40C4FF</color>
