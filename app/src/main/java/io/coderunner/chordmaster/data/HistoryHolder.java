@@ -4,16 +4,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.coderunner.chordmaster.R;
 
+import static io.coderunner.chordmaster.util.Util.formatter;
+
 public class HistoryHolder extends RecyclerView.ViewHolder {
     private View mView;
-
-    private DateFormat formatter = new SimpleDateFormat("MMM dd HH:mm");
 
     public HistoryHolder(View itemView) {
         super(itemView);

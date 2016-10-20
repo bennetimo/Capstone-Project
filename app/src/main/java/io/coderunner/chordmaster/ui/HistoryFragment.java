@@ -41,14 +41,15 @@ public class HistoryFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mUserId = mFirebaseUser.getUid();
-        DatabaseReference scoresRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES);
-        mHistoryAdapter = new HistoryAdapter(Score.class, R.layout.list_item_history, HistoryHolder.class, scoresRef);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mUserId = mFirebaseUser.getUid();
+        DatabaseReference scoresRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES);
+        mHistoryAdapter = new HistoryAdapter(Score.class, R.layout.list_item_history, HistoryHolder.class, scoresRef);
+
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         ButterKnife.bind(this, root);
         mRecyclerViewHistory.setHasFixedSize(true);

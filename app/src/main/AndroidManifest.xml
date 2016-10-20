@@ -33,6 +33,20 @@
             android:name="io.coderunner.chordmaster.provider.ChordsProvider"
             android:authorities="@string/content_authority_chords"
             android:exported="false" />
+
+        <service
+            android:name=".service.WidgetRemoteViewsService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <receiver android:name=".ui.widget.HistoryWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_history_info" />
+        </receiver>
     </application>
 
 </manifest>

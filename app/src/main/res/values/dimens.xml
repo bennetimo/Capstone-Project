@@ -11,4 +11,9 @@
     <dimen name="list_item_text_size">16.6sp</dimen>
     <dimen name="list_text_size_byline">12sp</dimen>
     <dimen name="lists_row_height">70dp</dimen>
+
+    <!-- Widgets -->
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_padding_horizontal">3dp</dimen>
+    <dimen name="widget_padding_vertical">3dp</dimen>
 </resources>

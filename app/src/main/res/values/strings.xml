@@ -41,4 +41,7 @@
     <!-- Content Authorities -->
     <string name="content_authority_chords">io.coderunner.chordmaster.provider.ChordsProvider</string>
 
+    <!-- General -->
+    <string name="error_no_data">No data is available</string>
+
 </resources>
