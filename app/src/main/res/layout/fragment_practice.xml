@@ -15,42 +15,59 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvChordChange"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_view2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/font_size_chordchange"/>
-
-        <TextView
-            android:id="@+id/tvPreviousBest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/font_size_previousbest"/>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/pbPractice"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="250dp"
-                android:layout_height="273dp"
-                android:indeterminate="false"
-                android:layout_centerInParent="true"
-                android:progressDrawable="@drawable/timer" />
+            card_view:cardCornerRadius="4dp"
+            android:layout_margin="5dp">
 
             <TextView
-                android:id="@+id/tvTimeRemaining"
+                android:id="@+id/tvChordChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:textSize="@dimen/font_size_countdown"/>
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/font_size_chordchange"/>
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/pbPractice"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="250dp"
+                    android:layout_height="273dp"
+                    android:indeterminate="false"
+                    android:layout_centerInParent="true"
+                    android:progressDrawable="@drawable/timer" />
+
+                <TextView
+                    android:id="@+id/tvTimeRemaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textSize="@dimen/font_size_countdown"/>
+
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvPreviousBest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_previousbest"
+                android:gravity="bottom|center"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom|center_horizontal"/>
+
+
+        </android.support.v7.widget.CardView>
 
         <Button
             android:id="@+id/btnPause"

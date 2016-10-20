@@ -93,7 +93,7 @@ public class PracticeFragment extends Fragment {
 
         mPbPractice.setMax(totalSeconds);
 
-        mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Score previousBest = dataSnapshot.getValue(Score.class);
