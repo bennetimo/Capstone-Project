@@ -27,6 +27,7 @@
         android:layout_marginTop="@dimen/lists_label_top_margin"
         android:text="@string/history_changes_label"
         android:textColor="@color/light_black"
+        android:contentDescription="@string/cd_changes_label"
         android:textSize="@dimen/list_text_size_byline" />
 
     <TextView
@@ -52,5 +53,6 @@
         android:layout_marginRight="@dimen/lists_label_side_margin"
         android:layout_marginTop="@dimen/lists_label_top_margin"
         android:textColor="@color/light_black"
+        android:contentDescription="@string/cd_achieved"
         android:textSize="@dimen/list_text_size_byline" />
 </RelativeLayout>

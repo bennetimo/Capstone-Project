@@ -30,4 +30,9 @@ public class Change {
     public String getChangeString() {
         return chord1.getName() + "/" + chord2.getName();
     }
+
+    @Exclude
+    public String getContentDescriptionString() {
+        return chord1.getName() + " to " + chord2.getName();
+    }
 }

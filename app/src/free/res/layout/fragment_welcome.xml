@@ -32,7 +32,8 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="@string/label_choose_chords" />
+                android:text="@string/label_choose_chords"
+                android:contentDescription="string/cd_chords_label"/>
 
             <LinearLayout
                 android:id="@+id/chord_pickers"
@@ -49,6 +50,7 @@
                     android:layout_height="200dp"
                     ads:wheel_data="@array/preloaded_chords"
                     android:backgroundTint="@color/light_black"
+                    android:contentDescription="@string/cd_chord_1_picker"
                     android:layout_weight="1"/>
 
                 <com.aigestudio.wheelpicker.WheelPicker
@@ -56,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     ads:wheel_data="@array/preloaded_chords"
+                    android:contentDescription="@string/cd_chord_2_picker"
                     android:layout_weight="1"/>
 
             </LinearLayout>
@@ -73,7 +76,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="44dp"
-                android:layout_marginEnd="44dp" />
+                android:layout_marginEnd="44dp"
+                android:contentDescription="@string/cd_chord_2"/>
 
             <TextView
                 android:id="@+id/label_chord_1"
@@ -88,29 +92,30 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="43dp"
-                android:layout_marginStart="43dp" />
+                android:layout_marginStart="43dp"
+                android:contentDescription="@string/cd_chord_1"/>
 
             <Button
                 android:id="@+id/btnChooseChord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/button_choose_chord"
                 android:layout_below="@+id/label_chord_1"
                 android:gravity="center"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/cd_choose_chord"/>
 
             <Button
                 android:id="@+id/btnRandomChord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/button_random_chord"
                 android:layout_below="@+id/btnChooseChord"
                 android:gravity="start"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/cd_random_chord"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -122,7 +127,8 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/firebase_ads_banner_welcome_screen">
+        ads:adUnitId="@string/firebase_ads_banner_welcome_screen"
+        android:contentDescription="@string/cd_advert">
     </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

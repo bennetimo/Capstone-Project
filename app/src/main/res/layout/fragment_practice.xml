@@ -37,6 +37,7 @@
                 android:layout_height="@dimen/countdown_bar_height"
                 android:indeterminate="false"
                 android:layout_centerInParent="true"
+                android:contentDescription="@string/cd_timer"
                 android:progressDrawable="@drawable/timer" />
 
             <TextView
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
+                android:contentDescription="@string/cd_time_remaining"
                 android:textSize="@dimen/font_size_countdown"/>
         </RelativeLayout>
 
@@ -55,6 +57,7 @@
             android:textSize="@dimen/font_size_previousbest"
             android:gravity="bottom|center"
             android:layout_marginBottom="@dimen/lists_layout_margin"
+            android:contentDescription="@string/cd_previous_best"
             android:layout_gravity="bottom|center_horizontal"/>
     </android.support.v7.widget.CardView>
 
@@ -64,6 +67,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         style="@style/Widget.AppCompat.Button.Colored"
+        android:contentDescription="@string/cd_pause"
         android:text="@string/button_pause"/>
 
     <Button
@@ -72,6 +76,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         style="@style/Widget.AppCompat.Button.Colored"
+        android:contentDescription="@string/cd_resume"
         android:text="@string/button_resume"/>
 
 </RelativeLayout>

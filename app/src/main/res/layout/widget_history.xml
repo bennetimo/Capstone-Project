@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:dividerHeight="0dp"/>
+        android:dividerHeight="0dp"
+        android:contentDescription="@string/cd_history"/>
     <TextView
         android:id="@+id/widget_empty"
         android:layout_width="match_parent"
@@ -19,6 +20,7 @@
         android:gravity="center"
         android:fontFamily="sans-serif-condensed"
         android:textAppearance="?android:textAppearanceLarge"
-        android:text="@string/error_no_data"/>
+        android:text="@string/error_no_data"
+        android:contentDescription="@string/cd_no_data"/>
 
 </FrameLayout>

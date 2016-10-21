@@ -52,6 +52,7 @@ public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorA
             super(itemView);
             chordName = (TextView) itemView.findViewById(R.id.chordName);
             chordName.setTypeface(robotoLight);
+            chordName.setContentDescription(chordName.getText());
         }
 
         @Override

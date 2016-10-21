@@ -83,6 +83,7 @@ public class PracticeFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         mTvChordChange.setText(change.getChangeString());
+        mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs/1000)))*1000;

@@ -59,4 +59,26 @@
     <string name="firebase_path_users" translatable="false">users</string>
     <string name="firebase_path_scores" translatable="false">scores</string>
 
+    <!-- Content Descriptions -->
+    <string name="cd_chords_label">Pick Chords</string>
+    <string name="cd_chord_1">Chord 1</string>
+    <string name="cd_chord_1_picker">Chord 1</string>
+    <string name="cd_chord_2">Chord 2</string>
+    <string name="cd_chord_2_picker">Chord 2</string>
+    <string name="cd_choose_chord">Choose Chord</string>
+    <string name="cd_random_chord">Random Chord</string>
+    <string name="cd_advert">Advert</string>
+    <string name="cd_score_picker">Input number of changes</string>
+    <string name="cd_chords">Chords</string>
+    <string name="cd_add_chord">Add chord</string>
+    <string name="cd_history">Practice History</string>
+    <string name="cd_timer">Timer</string>
+    <string name="cd_time_remaining">Seconds Remaining</string>
+    <string name="cd_previous_best">Previous Best</string>
+    <string name="cd_pause">Pause</string>
+    <string name="cd_resume">Resume</string>
+    <string name="cd_changes_label">Changes</string>
+    <string name="cd_achieved">Date Achieved</string>
+    <string name="cd_no_data">Empty</string>
+
 </resources>
