@@ -18,6 +18,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -25,17 +27,22 @@ import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.db.ChordsColumns;
 import io.coderunner.chordmaster.data.db.ChordsProvider;
+import io.coderunner.chordmaster.data.model.Change;
+import io.coderunner.chordmaster.data.model.Chord;
+import io.coderunner.chordmaster.task.RandomChangeTask;
 
 import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_WELCOME;
 
 public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @BindView(R.id.chord1)
-    WheelPicker firstChordPicker;
+    WheelPicker chord1Picker;
     @BindView(R.id.chord2)
-    WheelPicker secondChordPicker;
+    WheelPicker chord2Picker;
     @BindView(R.id.btnChooseChord)
     Button mBtnChooseChord;
+    @BindView(R.id.btnRandomChord)
+    Button mBtnRandomChord;
     @BindView(R.id.adView)
     AdView mAdView;
     private Context mContext;
@@ -62,16 +69,27 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
 
         getLoaderManager().initLoader(LOADER_ID_FRAG_WELCOME, null, this);
 
-        initWheelPicker(firstChordPicker);
-        initWheelPicker(secondChordPicker);
+        initWheelPicker(chord1Picker);
+        initWheelPicker(chord2Picker);
 
         mBtnChooseChord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firstChord = (String) firstChordPicker.getData().get(firstChordPicker.getCurrentItemPosition());
-                String secondChord = (String) secondChordPicker.getData().get(secondChordPicker.getCurrentItemPosition());
-                Intent intent = new Intent(mContext, PracticeActivity.class).putExtra(Intent.EXTRA_TEXT, firstChord + "/" + secondChord);
+                Chord chord1 = (Chord) chord1Picker.getData().get(chord1Picker.getCurrentItemPosition());
+                Chord chord2 = (Chord) chord2Picker.getData().get(chord2Picker.getCurrentItemPosition());
+                Change change = new Change(chord1, chord2);
+
+                Intent intent = new Intent(mContext, PracticeActivity.class).putExtra(Intent.EXTRA_TEXT, Parcels.wrap(change));
                 startActivity(intent);
+            }
+        });
+
+        mBtnRandomChord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBtnRandomChord.setEnabled(false);
+                RandomChangeTask task = new RandomChangeTask(chord1Picker, chord2Picker, mBtnRandomChord);
+                task.execute();
             }
         });
 
@@ -98,13 +116,15 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
         // error when using cyclic mode at this line:
         // https://github.com/AigeStudio/WheelPicker/blob/110102b4834f919085d52143dd9440c7d77f2abe/WheelPicker/src/main/java/com/aigestudio/wheelpicker/WheelPicker.java#L533
         if (data.getCount() > 0) {
-            ArrayList<String> swap = new ArrayList<>();
+            ArrayList<Chord> swap = new ArrayList<>();
             data.moveToFirst();
             while (data.moveToNext()) {
-                swap.add(data.getString(data.getColumnIndex(ChordsColumns.NAME)));
+                String chordName = data.getString(data.getColumnIndex(ChordsColumns.NAME));
+                Chord chord = new Chord(chordName);
+                swap.add(chord);
             }
-            firstChordPicker.setData(swap);
-            secondChordPicker.setData(swap);
+            chord1Picker.setData(swap);
+            chord2Picker.setData(swap);
         }
     }
 

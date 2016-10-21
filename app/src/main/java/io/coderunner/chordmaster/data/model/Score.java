@@ -1,17 +1,16 @@
 package io.coderunner.chordmaster.data.model;
 
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
 public class Score {
 
-    public String change;
+    public Change change;
     public int score;
     public Object time;
 
     public Score(){}
 
-    public Score(String change, int score) {
+    public Score(Change change, int score) {
         this.change = change;
         this.score = score;
         this.time = ServerValue.TIMESTAMP;
@@ -26,7 +25,7 @@ public class Score {
         }
     }
 
-    public String getChange() {
+    public Change getChange() {
         return change;
     }
 
@@ -36,5 +35,9 @@ public class Score {
 
     public Object getTime() {
         return time;
+    }
+
+    public String getChangeString(){
+        return change.getChangeString();
     }
 }

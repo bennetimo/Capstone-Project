@@ -1,6 +1,7 @@
 <resources>
     <!-- Welcome -->
     <string name="button_quick_chord">Quick Chord</string>
+    <string name="button_random_chord">Random</string>
     <string name="button_choose_chord">Play</string>
     <string name="label_choose_chords">Pick Chords</string>
     <string name="label_chord_1">Chord #1</string>

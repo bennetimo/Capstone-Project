@@ -14,7 +14,7 @@ public class HistoryAdapter extends FirebaseRecyclerAdapter<Score, HistoryHolder
 
     @Override
     public void populateViewHolder(HistoryHolder historyHolder, Score score, int position) {
-        historyHolder.setChordpair(score.getChange());
+        historyHolder.setChordpair(score.getChangeString());
         historyHolder.setScore(score.getScore());
         historyHolder.setAchieved(score.getCreatedTimestamp());
     }

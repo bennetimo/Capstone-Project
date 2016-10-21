@@ -92,13 +92,24 @@
 
             <Button
                 android:id="@+id/btnChooseChord"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/button_choose_chord"
                 android:layout_below="@+id/label_chord_1"
                 android:gravity="center"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
+                android:id="@+id/btnRandomChord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:text="@string/button_random_chord"
+                android:layout_below="@+id/btnChooseChord"
+                android:gravity="left"
                 android:layout_gravity="center_horizontal"/>
 
         </RelativeLayout>

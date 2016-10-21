@@ -74,7 +74,7 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
 
         Score score = mScores.get(position);
 
-        views.setTextViewText(R.id.widget_history_chordpair, score.getChange());
+        views.setTextViewText(R.id.widget_history_chordpair, score.getChangeString());
         views.setTextViewText(R.id.widget_history_score, "" + score.getScore());
         views.setTextViewText(R.id.widget_history_achieved, formatter.format(score.getCreatedTimestamp()));
 

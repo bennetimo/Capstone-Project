@@ -30,11 +30,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.parceler.Parcels;
+
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
+import io.coderunner.chordmaster.data.model.Change;
 import io.coderunner.chordmaster.data.model.Score;
 import io.coderunner.chordmaster.util.Constants;
 
@@ -60,7 +63,7 @@ public class PracticeFragment extends Fragment {
     private FirebaseUser mFirebaseUser;
     private String mUserId;
 
-    private String chordPair;
+    private Change change;
 
     private final String LOG_TAG = this.getClass().getSimpleName();
 
@@ -70,7 +73,7 @@ public class PracticeFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        chordPair = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        change = Parcels.unwrap(getActivity().getIntent().getParcelableExtra(Intent.EXTRA_TEXT));
     }
 
     @Override
@@ -79,7 +82,7 @@ public class PracticeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_practice, container, false);
         ButterKnife.bind(this, root);
 
-        mTvChordChange.setText(chordPair);
+        mTvChordChange.setText(change.getChangeString());
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs/1000)))*1000;
@@ -182,10 +185,8 @@ public class PracticeFragment extends Fragment {
     }
 
     public void addScore(int score) {
-        String chordPair = mTvChordChange.getText().toString();
-
         DatabaseReference newScoreRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES).push();
-        Score newScore = new Score(chordPair, score);
+        Score newScore = new Score(change, score);
         newScoreRef.setValue(newScore);
     }
 }
