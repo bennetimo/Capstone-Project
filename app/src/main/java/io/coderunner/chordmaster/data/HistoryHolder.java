@@ -7,8 +7,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 import io.coderunner.chordmaster.R;
-
-import static io.coderunner.chordmaster.util.Util.formatter;
+import io.coderunner.chordmaster.util.Util;
 
 public class HistoryHolder extends RecyclerView.ViewHolder {
     private View mView;
@@ -25,13 +24,13 @@ public class HistoryHolder extends RecyclerView.ViewHolder {
 
     public void setScore(int score) {
         TextView field = (TextView) mView.findViewById(R.id.tv_history_score);
-        field.setText("" + score);
+        field.setText(String.valueOf(score));
     }
 
     public void setAchieved(long time) {
         Date date = new Date(time);
 
         TextView field = (TextView) mView.findViewById(R.id.tv_history_achieved);
-        field.setText(formatter.format(date));
+        field.setText(Util.getDateFormatter(itemView.getContext()).format(date));
     }
 }

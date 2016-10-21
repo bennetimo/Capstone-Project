@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Chord Pickers -->
+    <integer name="chord_picker_num_visible">7</integer>
+
     <!--Countdown Timer-->
     <integer name="countdown_ms">10000</integer>
     <integer name="leadin_ms">1000</integer>

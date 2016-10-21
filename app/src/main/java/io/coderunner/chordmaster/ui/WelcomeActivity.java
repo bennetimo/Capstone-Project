@@ -79,7 +79,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.d(LOG_TAG, "login successful as " + mFirebaseAuth.getCurrentUser().getUid());
                 } else {
-                    Toast.makeText(getApplicationContext(), "Unable to login", Toast.LENGTH_LONG).show();
+                    Log.e(LOG_TAG, "Unable to login");
                 }
             }
         });
@@ -95,9 +95,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new WelcomeFragment(), "Practice");
-        adapter.addFragment(new HistoryFragment(), "History");
-        adapter.addFragment(new ChordsFragment(), "Chords");
+        adapter.addFragment(new WelcomeFragment(), getString(R.string.tab_practice));
+        adapter.addFragment(new HistoryFragment(), getString(R.string.tab_history));
+        adapter.addFragment(new ChordsFragment(), getString(R.string.tab_chords));
         viewPager.setAdapter(adapter);
     }
 

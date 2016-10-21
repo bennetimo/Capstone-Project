@@ -63,7 +63,7 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
         // Render the banner ad
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("3D7A81A8C6EFE58743D4EA139908457B")
+                .addTestDevice(getString(R.string.test_device_id))
                 .build();
         mAdView.loadAd(adRequest);
 
@@ -99,7 +99,7 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
     private void initWheelPicker(WheelPicker picker) {
         picker.setAtmospheric(true);
         picker.setCurved(true);
-        picker.setVisibleItemCount(7);
+        picker.setVisibleItemCount(getResources().getInteger(R.integer.chord_picker_num_visible));
         picker.setCyclic(true);
         picker.setSelectedItemTextColor(R.color.lightBlueA400);
     }

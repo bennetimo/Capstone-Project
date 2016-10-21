@@ -47,7 +47,7 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mUserId = mFirebaseUser.getUid();
-        DatabaseReference scoresRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES);
+        DatabaseReference scoresRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext));
         mHistoryAdapter = new HistoryAdapter(Score.class, R.layout.list_item_history, HistoryHolder.class, scoresRef);
 
         View root = inflater.inflate(R.layout.fragment_history, container, false);

@@ -1,4 +1,10 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <!-- Tabs -->
+    <string name="tab_practice">Practice</string>
+    <string name="tab_history">History</string>
+    <string name="tab_chords">Chords</string>
+
     <!-- Welcome -->
     <string name="button_quick_chord">Quick Chord</string>
     <string name="button_random_chord">Random</string>
@@ -14,13 +20,15 @@
     <string name="dialogue_times_up_message">How many changes did you manage?</string>
     <string name="dialogue_times_up_ok_button">OK</string>
     <string name="dialogue_times_up_cancel_button">I gave up!</string>
+    <string name="format_best_score">(Best: <xliff:g id="best_score">%d</xliff:g>)</string>
 
     <!-- Chords -->
     <string name="dialogue_add_chord_title">Add Chord</string>
     <string name="dialogue_add_chord_content">Enter name of chord:</string>
-    <string name="dialogue_add_chord_hint">Am</string>
+    <string name="dialogue_add_chord_hint" translatable="false">Am</string>
     <string name="dialogue_add_chord_prefill"></string>
     <string name="dialogue_error_chord_exists">You already have that chord!</string>
+    <string name="chords_typeface" translatable="false">fonts/Roboto-Light.ttf</string>
 
     <!-- History -->
     <string name="history_changes_label">Changes: </string>
@@ -40,9 +48,15 @@
     <string name="pref_target_changes_summary">How many changes to complete before this chord change is fast enough</string>
 
     <!-- Content Authorities -->
-    <string name="content_authority_chords">io.coderunner.chordmaster.provider.ChordsProvider</string>
+    <string name="content_authority_chords" translatable="false">io.coderunner.chordmaster.provider.ChordsProvider</string>
 
     <!-- General -->
     <string name="error_no_data">No data is available</string>
+    <string name="test_device_id" translatable="false">3D7A81A8C6EFE58743D4EA139908457B</string>
+    <string name="date_format_pattern" translatable="false">MMM dd HH:mm</string>
+
+    <!-- Firebase -->
+    <string name="firebase_path_users" translatable="false">users</string>
+    <string name="firebase_path_scores" translatable="false">scores</string>
 
 </resources>

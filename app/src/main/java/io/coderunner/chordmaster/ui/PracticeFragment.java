@@ -96,12 +96,14 @@ public class PracticeFragment extends Fragment {
 
         mPbPractice.setMax(totalSeconds);
 
-        mDatabase.child("users").child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES).addValueEventListener(new ValueEventListener() {
+        mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Score previousBest = dataSnapshot.getValue(Score.class);
-                if(previousBest != null)
-                    mTvPreviousBest.setText("(Best: " + previousBest.score + ")");
+                if(previousBest != null) {
+                    String best = String.format(mContext.getString(R.string.format_best_score), previousBest.score);
+                    mTvPreviousBest.setText(best);
+                }
             }
 
             @Override
@@ -116,7 +118,7 @@ public class PracticeFragment extends Fragment {
             public void onTick(long msTillFinished) {
                 int progress = (int) (msTillFinished/1000);
                 mPbPractice.setProgress(mPbPractice.getMax() - progress);
-                mTvTimeRemaining.setText("" + progress);
+                mTvTimeRemaining.setText(String.valueOf(progress));
             }
 
             @Override
@@ -185,7 +187,7 @@ public class PracticeFragment extends Fragment {
     }
 
     public void addScore(int score) {
-        DatabaseReference newScoreRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES).push();
+        DatabaseReference newScoreRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).push();
         Score newScore = new Score(change, score);
         newScoreRef.setValue(newScore);
     }

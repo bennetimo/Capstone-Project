@@ -26,8 +26,7 @@ import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.model.Score;
 import io.coderunner.chordmaster.ui.widget.HistoryWidgetProvider;
 import io.coderunner.chordmaster.util.Constants;
-
-import static io.coderunner.chordmaster.util.Util.formatter;
+import io.coderunner.chordmaster.util.Util;
 
 public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -52,7 +51,7 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUserId = mFirebaseUser.getUid();
-        mScoresRef = mDatabase.child(Constants.FIREBASE_LOCATION_USERS).child(mUserId).child(Constants.FIREBASE_LOCATION_SCORES);
+        mScoresRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext));
         getHistory();
     }
 
@@ -75,8 +74,8 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
         Score score = mScores.get(position);
 
         views.setTextViewText(R.id.widget_history_chordpair, score.getChangeString());
-        views.setTextViewText(R.id.widget_history_score, "" + score.getScore());
-        views.setTextViewText(R.id.widget_history_achieved, formatter.format(score.getCreatedTimestamp()));
+        views.setTextViewText(R.id.widget_history_score, String.valueOf(score.getScore()));
+        views.setTextViewText(R.id.widget_history_achieved, Util.getDateFormatter(mContext).format(score.getCreatedTimestamp()));
 
         final Intent fillInIntent = new Intent();
         views.setOnClickFillInIntent(R.id.widget_history_list_item, fillInIntent);
