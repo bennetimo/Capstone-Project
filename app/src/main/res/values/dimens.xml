@@ -1,16 +1,33 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Material Design -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="elevation_app_bar">4dp</dimen>
+    <dimen name="elevation_fab">6dp</dimen>
+    <dimen name="translation_z_fab">12dp</dimen>
+
+    <!-- Fonts -->
     <dimen name="font_size_countdown">32sp</dimen>
     <dimen name="font_size_chordchange">48sp</dimen>
     <dimen name="font_size_previousbest">16sp</dimen>
     <dimen name="font_size_card_title">20sp</dimen>
 
+    <!-- Card view -->
+    <dimen name="cardview_layout_margin">5dp</dimen>
+    <dimen name="cardview_corner_radius">4dp</dimen>
+
+    <!-- Countdown Bar -->
+    <dimen name="countdown_bar_width">250dp</dimen>
+    <dimen name="countdown_bar_height">270dp</dimen>
+
+    <!-- List views-->
     <dimen name="margin_small">16dp</dimen>
     <dimen name="list_item_text_size">16.6sp</dimen>
     <dimen name="list_text_size_byline">12sp</dimen>
-    <dimen name="lists_row_height">70dp</dimen>
+    <dimen name="lists_row_height">60dp</dimen>
+    <dimen name="lists_layout_margin">2dp</dimen>
+    <dimen name="lists_label_top_margin">2dp</dimen>
+    <dimen name="lists_label_side_margin">4dp</dimen>
 
     <!-- Widgets -->
     <dimen name="widget_margin">8dp</dimen>
