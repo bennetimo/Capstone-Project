@@ -109,7 +109,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:text="@string/button_random_chord"
                 android:layout_below="@+id/btnChooseChord"
-                android:gravity="left"
+                android:gravity="start"
                 android:layout_gravity="center_horizontal"/>
 
         </RelativeLayout>
