@@ -83,6 +83,8 @@ public class PlayFragment extends Fragment {
     private Change change;
 
     private long millisRemaining;
+    private int COUNTDOWN_MS;
+    private int LEADIN_MS;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +104,7 @@ public class PlayFragment extends Fragment {
 
         mTvChordChange.setText(change.getChangeString());
         mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
+        resetProgressBar();
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUserId = mFirebaseUser.getUid();
@@ -172,6 +175,23 @@ public class PlayFragment extends Fragment {
         newScoreRef.setValue(newScore);
     }
 
+    private long resetProgressBar(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        COUNTDOWN_MS = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
+        LEADIN_MS = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
+        int totalMs = COUNTDOWN_MS + LEADIN_MS;
+        int totalSeconds = totalMs / 1000;
+
+        // Decide if we're resuming a timer or starting a new one
+        long useMillis = millisRemaining <= 0 ? totalMs : millisRemaining;
+        mPbPractice.setMax(totalSeconds);
+        int progress = (int) (useMillis / 1000);
+        mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax()-progress));
+        mTvTimeRemaining.setText(String.valueOf(useMillis / 1000));
+
+        return useMillis;
+    }
+
     private CountDownTimer initTimer(long totalMs, long tickIntervalMs) {
         return new CountDownTimer(totalMs, tickIntervalMs) {
             @Override
@@ -179,7 +199,7 @@ public class PlayFragment extends Fragment {
                 // Save how many seconds are remaining in case we need to restart with a new timer when the user pauses
                 millisRemaining = msTillFinished;
                 int progress = (int) (msTillFinished / 1000);
-                mPbPractice.setProgress(mPbPractice.getMax() - progress);
+                mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax()-progress));
                 mTvTimeRemaining.setText(String.valueOf(progress));
             }
 
@@ -188,6 +208,7 @@ public class PlayFragment extends Fragment {
                 millisRemaining = 0;
                 toggleFab(mBtnPause);
                 toggleFab(mBtnPlay);
+                resetProgressBar();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -234,18 +255,9 @@ public class PlayFragment extends Fragment {
     }
 
     private void startPlay(){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
-        int leadinMs = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
-        int totalMs = countdownMs + leadinMs;
-        int totalSeconds = totalMs / 1000;
-
-        // Decide if we're resuming a timer or starting a new one
-        long useMillis = millisRemaining <= 0 ? totalMs : millisRemaining;
-
-        mPbPractice.setMax(totalSeconds);
+        long ms = resetProgressBar();
         // Start the timer
-        mPracticeTimer = initTimer(useMillis, mCountdownIntervalMs);
+        mPracticeTimer = initTimer(ms, mCountdownIntervalMs);
         mPracticeTimer.start();
     }
 }
