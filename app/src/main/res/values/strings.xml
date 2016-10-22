@@ -52,7 +52,7 @@
     <string name="content_authority_chords" translatable="false">io.coderunner.chordmaster.provider.ChordsProvider</string>
 
     <!-- General -->
-    <string name="error_no_data">No data is available</string>
+    <string name="no_data">No history yet, get strumming!</string>
     <string name="test_device_id" translatable="false">3D7A81A8C6EFE58743D4EA139908457B</string>
     <string name="date_format_pattern" translatable="false">MMM dd HH:mm</string>
 
@@ -78,6 +78,6 @@
     <string name="cd_resume">Resume</string>
     <string name="cd_changes_label">Changes</string>
     <string name="cd_achieved">Date Achieved</string>
-    <string name="cd_no_data">Empty</string>
+    <string name="cd_no_data">Empty History</string>
 
 </resources>

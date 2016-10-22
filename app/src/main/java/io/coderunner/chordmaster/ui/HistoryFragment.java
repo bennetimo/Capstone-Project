@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,7 +24,9 @@ import io.coderunner.chordmaster.util.Constants;
 public class HistoryFragment extends Fragment {
 
     @BindView(R.id.recyclerview_history)
-    RecyclerView mRecyclerViewHistory;
+    EmptyRecyclerView mRecyclerViewHistory;
+    @BindView(R.id.empty_data_view)
+    TextView mEmptyView;
     private Context mContext;
 
     private HistoryAdapter mHistoryAdapter;
@@ -66,6 +66,7 @@ public class HistoryFragment extends Fragment {
         mRecyclerViewHistory.setHasFixedSize(true);
         mRecyclerViewHistory.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerViewHistory.setAdapter(mHistoryAdapter);
+        mRecyclerViewHistory.setEmptyView(mEmptyView);
         return root;
     }
 
