@@ -54,8 +54,6 @@ public class PlayFragment extends Fragment {
     TextView mTvTimeRemaining;
     @BindView(R.id.tvChordChange)
     TextView mTvChordChange;
-    @BindView(R.id.tvPreviousBest)
-    TextView mTvPreviousBest;
     @BindView(R.id.btnPlay)
     FloatingActionButton mBtnPlay;
     @BindInt(R.integer.countdown_ms)
@@ -108,22 +106,6 @@ public class PlayFragment extends Fragment {
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUserId = mFirebaseUser.getUid();
-
-        mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Score previousBest = dataSnapshot.getValue(Score.class);
-                if (previousBest != null) {
-                    String best = String.format(mContext.getString(R.string.format_best_score), previousBest.score);
-                    mTvPreviousBest.setText(best);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         toggleFab(mBtnPause);
         mBtnPause.setOnClickListener(new View.OnClickListener() {

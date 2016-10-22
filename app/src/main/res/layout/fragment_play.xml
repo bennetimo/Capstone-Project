@@ -44,17 +44,6 @@
             android:textSize="@dimen/font_size_countdown" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvPreviousBest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="@dimen/lists_layout_margin"
-        android:contentDescription="@string/cd_previous_best"
-        android:gravity="bottom|center"
-        android:textSize="@dimen/font_size_small" />
-
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnPlay"
         style="@style/FAB"

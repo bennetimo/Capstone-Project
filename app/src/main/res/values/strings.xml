@@ -74,7 +74,6 @@
     <string name="cd_history">Practice History</string>
     <string name="cd_timer">Timer</string>
     <string name="cd_time_remaining">Seconds Remaining</string>
-    <string name="cd_previous_best">Previous Best</string>
     <string name="cd_pause">Pause</string>
     <string name="cd_resume">Resume</string>
     <string name="cd_changes_label">Changes</string>
