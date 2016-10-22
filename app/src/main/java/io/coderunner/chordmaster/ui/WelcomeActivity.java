@@ -94,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new WelcomeFragment(), getString(R.string.tab_practice));
+        adapter.addFragment(new WelcomeFragment(), getString(R.string.tab_pick));
         adapter.addFragment(new HistoryFragment(), getString(R.string.tab_history));
         adapter.addFragment(new ChordsFragment(), getString(R.string.tab_chords));
         viewPager.setAdapter(adapter);

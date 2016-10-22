@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -40,9 +41,9 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
     @BindView(R.id.chord2)
     WheelPicker chord2Picker;
     @BindView(R.id.btnChooseChord)
-    Button mBtnChooseChord;
+    FloatingActionButton mBtnChooseChord;
     @BindView(R.id.btnRandomChord)
-    Button mBtnRandomChord;
+    FloatingActionButton mBtnRandomChord;
     @BindView(R.id.adView)
     AdView mAdView;
     private Context mContext;

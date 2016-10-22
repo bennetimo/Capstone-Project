@@ -3,8 +3,8 @@ package io.coderunner.chordmaster.task;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.support.design.widget.FloatingActionButton;
 import android.view.MotionEvent;
-import android.widget.Button;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 
@@ -27,9 +27,9 @@ public class RandomChangeTask extends AsyncTask<Void, Void, Void> {
     private final int Y_MULTIPLIER = 5;
     private WheelPicker mChord1Picker;
     private WheelPicker mChord2Picker;
-    private Button mRandomButton;
+    private FloatingActionButton mRandomButton;
 
-    public RandomChangeTask(WheelPicker mChord1Picker, WheelPicker mChord2Picker, Button mRandomButton) {
+    public RandomChangeTask(WheelPicker mChord1Picker, WheelPicker mChord2Picker, FloatingActionButton mRandomButton) {
         this.mChord1Picker = mChord1Picker;
         this.mChord2Picker = mChord2Picker;
         this.mRandomButton = mRandomButton;

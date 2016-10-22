@@ -1,7 +1,7 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
     <!-- Tabs -->
-    <string name="tab_practice">Practice</string>
+    <string name="tab_pick">Pick</string>
     <string name="tab_history">History</string>
     <string name="tab_chords">Chords</string>
 

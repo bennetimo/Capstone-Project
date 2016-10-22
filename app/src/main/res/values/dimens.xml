@@ -5,6 +5,7 @@
     <dimen name="elevation_app_bar">4dp</dimen>
     <dimen name="elevation_fab">6dp</dimen>
     <dimen name="translation_z_fab">12dp</dimen>
+    <dimen name="margin_fab">8dp</dimen>
 
     <!-- Chord Picker -->
     <dimen name="chord_picker_height">200dp</dimen>

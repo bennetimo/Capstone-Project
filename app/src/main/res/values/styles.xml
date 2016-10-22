@@ -8,10 +8,11 @@
     </style>
 
     <style name="FAB">
-        <item name="android:layout_margin">0dp</item>
         <item name="fabSize">normal</item>
         <item name="rippleColor">@android:color/white</item>
-        <item name="backgroundTint">?colorPrimary</item>
+        <item name="backgroundTint">?colorAccent</item>
+        <item name="elevation">@dimen/elevation_fab</item>
+        <item name="pressedTranslationZ">@dimen/translation_z_fab</item>
     </style>
 
     <style name="ListItemHeadline">
