@@ -10,11 +10,11 @@ public class Constants {
     public static final int LOADER_ID_FRAG_CHORDS = 1;
 
     // Firebase
-    public static String getFirebaseLocationUsers(Context context){
+    public static String getFirebaseLocationUsers(Context context) {
         return context.getString(R.string.firebase_path_users);
     }
 
-    public static String getFirebaseLocationScores(Context context){
+    public static String getFirebaseLocationScores(Context context) {
         return context.getString(R.string.firebase_path_scores);
     }
 

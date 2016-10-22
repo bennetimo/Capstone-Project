@@ -25,7 +25,8 @@ import io.coderunner.chordmaster.util.Constants;
 
 public class HistoryFragment extends Fragment {
 
-    @BindView(R.id.recyclerview_history) RecyclerView mRecyclerViewHistory;
+    @BindView(R.id.recyclerview_history)
+    RecyclerView mRecyclerViewHistory;
     private Context mContext;
 
     private HistoryAdapter mHistoryAdapter;

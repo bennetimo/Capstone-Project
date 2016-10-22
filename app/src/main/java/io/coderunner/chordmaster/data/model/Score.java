@@ -8,7 +8,8 @@ public class Score {
     public int score;
     public Object time;
 
-    public Score(){}
+    public Score() {
+    }
 
     public Score(Change change, int score) {
         this.change = change;
@@ -19,8 +20,7 @@ public class Score {
     public Long getCreatedTimestamp() {
         if (time instanceof Long) {
             return (Long) time;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class Score {
         return time;
     }
 
-    public String getChangeString(){
+    public String getChangeString() {
         return change.getChangeString();
     }
 }

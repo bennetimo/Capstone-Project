@@ -12,9 +12,9 @@ public class Util {
 
     private static DateFormat formatter;
 
-    public static DateFormat getDateFormatter(Context context){
-        if(formatter == null){
-            formatter =  new SimpleDateFormat(context.getString(R.string.date_format_pattern), Locale.getDefault());
+    public static DateFormat getDateFormatter(Context context) {
+        if (formatter == null) {
+            formatter = new SimpleDateFormat(context.getString(R.string.date_format_pattern), Locale.getDefault());
         }
         return formatter;
     }

@@ -11,10 +11,13 @@ import static net.simonvt.schematic.annotation.DataType.Type.TEXT;
 
 public interface ChordsColumns {
 
-    @DataType(INTEGER) @PrimaryKey @AutoIncrement
+    @DataType(INTEGER)
+    @PrimaryKey
+    @AutoIncrement
     String _ID = "_id";
 
-    @DataType(TEXT) @NotNull
+    @DataType(TEXT)
+    @NotNull
     String NAME = "name";
 
 }

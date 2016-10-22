@@ -16,11 +16,7 @@ import java.util.Random;
  */
 public class RandomChangeTask extends AsyncTask<Void, Void, Void> {
 
-    private WheelPicker mChord1Picker;
-    private WheelPicker mChord2Picker;
-    private Button mRandomButton;
     private final Random r = new Random();
-
     // How long the total touch event is simulated for
     private final int FLING_MS = 300;
     // How frequently to register an intermediate event. Lower numbers give smoother motion
@@ -29,6 +25,9 @@ public class RandomChangeTask extends AsyncTask<Void, Void, Void> {
     private final int RANDOM_Y_MULTIPLIER = 80;
     // Higher makes the fling go much further
     private final int Y_MULTIPLIER = 5;
+    private WheelPicker mChord1Picker;
+    private WheelPicker mChord2Picker;
+    private Button mRandomButton;
 
     public RandomChangeTask(WheelPicker mChord1Picker, WheelPicker mChord2Picker, Button mRandomButton) {
         this.mChord1Picker = mChord1Picker;
@@ -51,7 +50,7 @@ public class RandomChangeTask extends AsyncTask<Void, Void, Void> {
     }
 
     // Generate a motion event with a random y flick based on the given params
-    private MotionEvent randomMotionEvent(long tick, int action){
+    private MotionEvent randomMotionEvent(long tick, int action) {
         float y = (r.nextFloat() * RANDOM_Y_MULTIPLIER) + (tick * Y_MULTIPLIER);
         return motionEvent(y, action);
     }
@@ -65,7 +64,7 @@ public class RandomChangeTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void v) {
         // Trigger a touch down event
         mChord1Picker.dispatchTouchEvent(motionEvent(0.0f, MotionEvent.ACTION_DOWN));
-        mChord2Picker.dispatchTouchEvent(motionEvent(0.0f,  MotionEvent.ACTION_DOWN));
+        mChord2Picker.dispatchTouchEvent(motionEvent(0.0f, MotionEvent.ACTION_DOWN));
 
 
         CountDownTimer timer = new CountDownTimer(FLING_MS, TICK_INTERVAL_MS) {
@@ -73,14 +72,14 @@ public class RandomChangeTask extends AsyncTask<Void, Void, Void> {
             public void onTick(long l) {
                 // Trigger touch move events
                 mChord1Picker.dispatchTouchEvent(randomMotionEvent(l, MotionEvent.ACTION_MOVE));
-                mChord2Picker.dispatchTouchEvent(randomMotionEvent(l,  MotionEvent.ACTION_MOVE));
+                mChord2Picker.dispatchTouchEvent(randomMotionEvent(l, MotionEvent.ACTION_MOVE));
             }
 
             @Override
             public void onFinish() {
                 // Trigger touch up events
-                mChord1Picker.dispatchTouchEvent(randomMotionEvent(FLING_MS,  MotionEvent.ACTION_UP));
-                mChord2Picker.dispatchTouchEvent(randomMotionEvent(FLING_MS,  MotionEvent.ACTION_UP));
+                mChord1Picker.dispatchTouchEvent(randomMotionEvent(FLING_MS, MotionEvent.ACTION_UP));
+                mChord2Picker.dispatchTouchEvent(randomMotionEvent(FLING_MS, MotionEvent.ACTION_UP));
                 mRandomButton.setEnabled(true);
             }
         };

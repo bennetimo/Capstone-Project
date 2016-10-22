@@ -3,9 +3,9 @@ package io.coderunner.chordmaster.ui;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -31,13 +31,13 @@ import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_CHORDS;
 
 public class ChordsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    @BindView(R.id.fab_add_chord) FloatingActionButton mFabAddChord;
+    @BindView(R.id.fab_add_chord)
+    FloatingActionButton mFabAddChord;
     @BindView(R.id.recyclerview_chords)
     RecyclerView mRecyclerViewChords;
     private Context mContext;
 
     private ChordsCursorAdapter mCursorAdapter;
-    private Cursor mCursor;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,32 +56,34 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         mRecyclerViewChords.setAdapter(mCursorAdapter);
 
         mFabAddChord.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 new MaterialDialog.Builder(mContext).title(R.string.dialogue_add_chord_title)
-                    .content(R.string.dialogue_add_chord_content)
-                    .inputType(InputType.TYPE_CLASS_TEXT)
-                    .input(R.string.dialogue_add_chord_hint, R.string.dialogue_add_chord_prefill, new MaterialDialog.InputCallback() {
-                        @Override public void onInput(MaterialDialog dialog, CharSequence input) {
-                            // Check if the chord exists, if it doesn't, add it
-                            Cursor c = getActivity().getContentResolver().query(ChordsProvider.Chords.CHORDS_URI,
-                                    new String[] { ChordsColumns.NAME }, ChordsColumns.NAME + "= ?",
-                                    new String[] { input.toString() }, null);
-                            if (c.getCount() != 0) {
-                                Toast toast =
-                                        Toast.makeText(getActivity(), getActivity().getString(R.string.dialogue_error_chord_exists),
-                                                Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                                toast.show();
-                                return;
-                            } else {
-                                // Add the chord to the DB
-                                ContentValues contentValues = new ContentValues();
-                                contentValues.put(ChordsColumns.NAME, input.toString());
-                                getActivity().getContentResolver().insert(ChordsProvider.Chords.CHORDS_URI, contentValues);
+                        .content(R.string.dialogue_add_chord_content)
+                        .inputType(InputType.TYPE_CLASS_TEXT)
+                        .input(R.string.dialogue_add_chord_hint, R.string.dialogue_add_chord_prefill, new MaterialDialog.InputCallback() {
+                            @Override
+                            public void onInput(MaterialDialog dialog, CharSequence input) {
+                                // Check if the chord exists, if it doesn't, add it
+                                Cursor c = getActivity().getContentResolver().query(ChordsProvider.Chords.CHORDS_URI,
+                                        new String[]{ChordsColumns.NAME}, ChordsColumns.NAME + "= ?",
+                                        new String[]{input.toString()}, null);
+                                if (c.getCount() != 0) {
+                                    Toast toast =
+                                            Toast.makeText(getActivity(), getActivity().getString(R.string.dialogue_error_chord_exists),
+                                                    Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+                                    toast.show();
+                                    return;
+                                } else {
+                                    // Add the chord to the DB
+                                    ContentValues contentValues = new ContentValues();
+                                    contentValues.put(ChordsColumns.NAME, input.toString());
+                                    getActivity().getContentResolver().insert(ChordsProvider.Chords.CHORDS_URI, contentValues);
+                                }
                             }
-                        }
-                    })
-                    .show();
+                        })
+                        .show();
 
             }
         });
@@ -97,7 +99,6 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
-        mCursor = data;
     }
 
     @Override

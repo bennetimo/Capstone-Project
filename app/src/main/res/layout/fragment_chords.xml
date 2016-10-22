@@ -24,13 +24,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_small"
+        android:contentDescription="@string/cd_add_chord"
         android:src="@drawable/icon_add"
         app:borderWidth="0dp"
         app:elevation="@dimen/elevation_fab"
         app:layout_anchor="@id/recyclerview_chords"
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="@dimen/translation_z_fab"
-        android:contentDescription="@string/cd_add_chord"
         app:rippleColor="@android:color/white" />
 
 </android.support.design.widget.CoordinatorLayout>

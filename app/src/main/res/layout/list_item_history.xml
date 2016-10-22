@@ -9,10 +9,10 @@
     android:focusable="false"
     android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
+    android:paddingEnd="@dimen/margin_small"
     android:paddingLeft="@dimen/margin_small"
     android:paddingRight="@dimen/margin_small"
-    android:paddingStart="@dimen/margin_small"
-    android:paddingEnd="@dimen/margin_small">
+    android:paddingStart="@dimen/margin_small">
 
     <TextView
         android:id="@+id/tv_history_chordpair"
@@ -28,9 +28,9 @@
         android:layout_marginEnd="@dimen/lists_label_side_margin"
         android:layout_marginRight="@dimen/lists_label_side_margin"
         android:layout_marginTop="@dimen/lists_label_top_margin"
+        android:contentDescription="@string/cd_changes_label"
         android:text="@string/history_changes_label"
         android:textColor="@color/light_black"
-        android:contentDescription="@string/cd_changes_label"
         android:textSize="@dimen/list_text_size_byline" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_marginEnd="@dimen/lists_label_side_margin"
         android:layout_marginRight="@dimen/lists_label_side_margin"
         android:layout_marginTop="@dimen/lists_label_top_margin"
-        android:textColor="@color/light_black"
         android:contentDescription="@string/cd_achieved"
+        android:textColor="@color/light_black"
         android:textSize="@dimen/list_text_size_byline" />
 </RelativeLayout>

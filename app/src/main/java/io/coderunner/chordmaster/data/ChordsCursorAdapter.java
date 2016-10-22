@@ -13,21 +13,22 @@ import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.db.ChordsColumns;
 
 /**
- *  Credit to skyfishjy gist:
- *    https://gist.github.com/skyfishjy/443b7448f59be978bc59
+ * Credit to skyfishjy gist:
+ * https://gist.github.com/skyfishjy/443b7448f59be978bc59
  * for the code structure
  */
 public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorAdapter.ViewHolder> {
 
     private static Context mContext;
     private static Typeface robotoLight;
-    public ChordsCursorAdapter(Context context, Cursor cursor){
+
+    public ChordsCursorAdapter(Context context, Cursor cursor) {
         super(context, cursor);
         mContext = context;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         robotoLight = Typeface.createFromAsset(mContext.getAssets(), mContext.getString(R.string.chords_typeface));
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_chord, parent, false);
@@ -36,19 +37,21 @@ public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorA
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor){
+    public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor) {
         String chordName = cursor.getString(cursor.getColumnIndex(ChordsColumns.NAME));
         viewHolder.chordName.setText(chordName);
     }
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         return super.getItemCount();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+            implements View.OnClickListener {
         public final TextView chordName;
-        public ViewHolder(View itemView){
+
+        public ViewHolder(View itemView) {
             super(itemView);
             chordName = (TextView) itemView.findViewById(R.id.chordName);
             chordName.setTypeface(robotoLight);
@@ -56,6 +59,7 @@ public class ChordsCursorAdapter extends CursorRecyclerViewAdapter<ChordsCursorA
         }
 
         @Override
-        public void onClick(View v) {}
+        public void onClick(View v) {
+        }
     }
 }

@@ -56,10 +56,12 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
     }
 
     @Override
-    public void onDataSetChanged() {}
+    public void onDataSetChanged() {
+    }
 
     @Override
-    public void onDestroy() {}
+    public void onDestroy() {
+    }
 
     @Override
     public int getCount() {
@@ -110,9 +112,10 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(LOG_TAG, "Data retrieved");
-                GenericTypeIndicator<Map<String, Score>> t = new GenericTypeIndicator<Map<String, Score>>() {};
+                GenericTypeIndicator<Map<String, Score>> t = new GenericTypeIndicator<Map<String, Score>>() {
+                };
                 Map<String, Score> result = dataSnapshot.getValue(t);
-                if(result != null){
+                if (result != null) {
                     Collection<Score> scores = dataSnapshot.getValue(t).values();
 
                     mScores.clear();

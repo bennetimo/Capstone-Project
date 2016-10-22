@@ -6,15 +6,22 @@
     <dimen name="elevation_fab">6dp</dimen>
     <dimen name="translation_z_fab">12dp</dimen>
 
+    <!-- Chord Picker -->
+    <dimen name="chord_picker_height">200dp</dimen>
+    <dimen name="chord_picker_label_margin_side">45dp</dimen>
+    <dimen name="chord_picker_label_margin_top">10dp</dimen>
+
     <!-- Fonts -->
     <dimen name="font_size_countdown">32sp</dimen>
-    <dimen name="font_size_chordchange">48sp</dimen>
-    <dimen name="font_size_previousbest">16sp</dimen>
+    <dimen name="font_size_large">48sp</dimen>
+    <dimen name="font_size_small">16sp</dimen>
     <dimen name="font_size_card_title">20sp</dimen>
+    <dimen name="font_size_chord_picker_label">20sp</dimen>
 
     <!-- Card view -->
     <dimen name="cardview_layout_margin">5dp</dimen>
     <dimen name="cardview_corner_radius">4dp</dimen>
+    <dimen name="cardview_title_height">40dp</dimen>
 
     <!-- Countdown Bar -->
     <dimen name="countdown_bar_width">250dp</dimen>

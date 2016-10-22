@@ -43,29 +43,40 @@ import io.coderunner.chordmaster.util.Constants;
 
 public class PracticeFragment extends Fragment {
 
+    private final String LOG_TAG = this.getClass().getSimpleName();
+    @BindView(R.id.pbPractice)
+    ProgressBar mPbPractice;
+    @BindView(R.id.btnPause)
+    Button mBtnStop;
+    @BindView(R.id.tvTimeRemaining)
+    TextView mTvTimeRemaining;
+    @BindView(R.id.tvChordChange)
+    TextView mTvChordChange;
+    @BindView(R.id.tvPreviousBest)
+    TextView mTvPreviousBest;
+    @BindInt(R.integer.countdown_ms)
+    int mCountdownMs;
+    @BindInt(R.integer.leadin_ms)
+    int mLeadinMs;
+    @BindInt(R.integer.countdown_interval_ms)
+    int mCountdownIntervalMs;
+    @BindInt(R.integer.score_picker_max_value)
+    int mScorePickerMax;
+    @BindInt(R.integer.score_picker_min_value)
+    int mScorePickerMin;
+    @BindInt(R.integer.score_picker_default_value)
+    int mScorePickerDefault;
+    @BindString(R.string.pref_leadin_time_key)
+    String mLeadinTimeKey;
+    @BindString(R.string.pref_countdown_time_key)
+    String mCountdownTimeKey;
     private CountDownTimer mPracticeTimer;
-    @BindView(R.id.pbPractice) ProgressBar mPbPractice;
-    @BindView(R.id.btnPause) Button mBtnStop;
-    @BindView(R.id.tvTimeRemaining) TextView mTvTimeRemaining;
-    @BindView(R.id.tvChordChange) TextView mTvChordChange;
-    @BindView(R.id.tvPreviousBest) TextView mTvPreviousBest;
-    @BindInt(R.integer.countdown_ms) int mCountdownMs;
-    @BindInt(R.integer.leadin_ms) int mLeadinMs;
-    @BindInt(R.integer.countdown_interval_ms) int mCountdownIntervalMs;
-    @BindInt(R.integer.score_picker_max_value) int mScorePickerMax;
-    @BindInt(R.integer.score_picker_min_value) int mScorePickerMin;
-    @BindInt(R.integer.score_picker_default_value) int mScorePickerDefault;
-    @BindString(R.string.pref_leadin_time_key) String mLeadinTimeKey;
-    @BindString(R.string.pref_countdown_time_key) String mCountdownTimeKey;
     private Context mContext;
     private DatabaseReference mDatabase;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private String mUserId;
-
     private Change change;
-
-    private final String LOG_TAG = this.getClass().getSimpleName();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,8 +97,8 @@ public class PracticeFragment extends Fragment {
         mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs/1000)))*1000;
-        int leadinMs = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs/1000)))*1000;
+        int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
+        int leadinMs = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUserId = mFirebaseUser.getUid();
@@ -101,7 +112,7 @@ public class PracticeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Score previousBest = dataSnapshot.getValue(Score.class);
-                if(previousBest != null) {
+                if (previousBest != null) {
                     String best = String.format(mContext.getString(R.string.format_best_score), previousBest.score);
                     mTvPreviousBest.setText(best);
                 }
@@ -117,7 +128,7 @@ public class PracticeFragment extends Fragment {
         mPracticeTimer = new CountDownTimer(totalMs, mCountdownIntervalMs) {
             @Override
             public void onTick(long msTillFinished) {
-                int progress = (int) (msTillFinished/1000);
+                int progress = (int) (msTillFinished / 1000);
                 mPbPractice.setProgress(mPbPractice.getMax() - progress);
                 mTvTimeRemaining.setText(String.valueOf(progress));
             }
@@ -181,7 +192,7 @@ public class PracticeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(mPracticeTimer != null) {
+        if (mPracticeTimer != null) {
             Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
             mPracticeTimer.cancel();
         }
