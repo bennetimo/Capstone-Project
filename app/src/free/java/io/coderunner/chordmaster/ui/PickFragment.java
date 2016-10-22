@@ -1,7 +1,6 @@
 package io.coderunner.chordmaster.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +17,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -27,6 +24,7 @@ import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.db.ChordsColumns;
 import io.coderunner.chordmaster.data.db.ChordsProvider;
+import io.coderunner.chordmaster.data.model.Change;
 import io.coderunner.chordmaster.data.model.Chord;
 import io.coderunner.chordmaster.task.RandomChangeTask;
 
@@ -43,6 +41,27 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
     @BindView(R.id.adView)
     AdView mAdView;
     private Context mContext;
+
+    private ChordChangeListener mCallback;
+
+    // Container Activity must implement this interface
+    public interface ChordChangeListener {
+        void onChordChange(Change change);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (ChordChangeListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement ChordChangeListener");
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +97,9 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
             }
         });
 
+        // Move the chord wheels into random positions on first view
+        mBtnRandomChord.performClick();
+
         return root;
     }
 
@@ -87,6 +109,18 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
         picker.setVisibleItemCount(getResources().getInteger(R.integer.chord_picker_num_visible));
         picker.setCyclic(true);
         picker.setSelectedItemTextColor(R.color.lightBlueA400);
+        picker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(WheelPicker picker, Object data, int position) {
+                mCallback.onChordChange(getSelectedChange());
+            }
+        });
+    }
+
+    public Change getSelectedChange() {
+        Chord chord1 = (Chord) chord1Picker.getData().get(chord1Picker.getCurrentItemPosition());
+        Chord chord2 = (Chord) chord2Picker.getData().get(chord2Picker.getCurrentItemPosition());
+        return new Change(chord1, chord2);
     }
 
     @Override

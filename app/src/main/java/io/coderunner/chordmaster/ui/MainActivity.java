@@ -29,8 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
+import io.coderunner.chordmaster.data.model.Change;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PickFragment.ChordChangeListener {
 
     public static String[] PRELOADED_CHORDS;
     private final String LOG_TAG = this.getClass().getSimpleName();
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private PlayFragment mPlayFragment = new PlayFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PickFragment(), getString(R.string.tab_pick));
-        adapter.addFragment(new PlayFragment(), getString(R.string.tab_play));
+        adapter.addFragment(mPlayFragment, getString(R.string.tab_play));
         adapter.addFragment(new HistoryFragment(), getString(R.string.tab_history));
         adapter.addFragment(new ChordsFragment(), getString(R.string.tab_chords));
         viewPager.setAdapter(adapter);
@@ -130,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
         return true;
+    }
+
+    @Override
+    public void onChordChange(Change change) {
+        mPlayFragment.chordChange(change);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

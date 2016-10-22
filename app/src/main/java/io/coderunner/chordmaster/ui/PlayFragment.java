@@ -2,7 +2,6 @@ package io.coderunner.chordmaster.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
@@ -25,13 +24,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.parceler.Parcels;
 
 import butterknife.BindInt;
 import butterknife.BindString;
@@ -39,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.model.Change;
-import io.coderunner.chordmaster.data.model.Chord;
 import io.coderunner.chordmaster.data.model.Score;
 import io.coderunner.chordmaster.util.Constants;
 
@@ -90,8 +83,6 @@ public class PlayFragment extends Fragment {
         mContext = getActivity();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        change = Parcels.unwrap(getActivity().getIntent().getParcelableExtra(Intent.EXTRA_TEXT));
-        change = new Change(new Chord("A"), new Chord("Am"));
     }
 
     @Override
@@ -100,8 +91,6 @@ public class PlayFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_play, container, false);
         ButterKnife.bind(this, root);
 
-        mTvChordChange.setText(change.getChangeString());
-        mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
         resetProgressBar();
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -130,8 +119,17 @@ public class PlayFragment extends Fragment {
         return root;
     }
 
-    private void toggleFab(FloatingActionButton fab){
-        if(fab.isEnabled()){
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mPracticeTimer != null) {
+            Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
+            mPracticeTimer.cancel();
+        }
+    }
+
+    private void toggleFab(FloatingActionButton fab) {
+        if (fab.isEnabled()) {
             // Disable it
             fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.background)));
             fab.setEnabled(false);
@@ -142,12 +140,11 @@ public class PlayFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mPracticeTimer != null) {
-            Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
-            mPracticeTimer.cancel();
+    public void chordChange(Change c) {
+        if (c != null) {
+            change = c;
+            mTvChordChange.setText(change.getChangeString());
+            mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
         }
     }
 
@@ -157,7 +154,7 @@ public class PlayFragment extends Fragment {
         newScoreRef.setValue(newScore);
     }
 
-    private long resetProgressBar(){
+    private long resetProgressBar() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         COUNTDOWN_MS = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
         LEADIN_MS = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
@@ -168,7 +165,7 @@ public class PlayFragment extends Fragment {
         long useMillis = millisRemaining <= 0 ? totalMs : millisRemaining;
         mPbPractice.setMax(totalSeconds);
         int progress = (int) (useMillis / 1000);
-        mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax()-progress));
+        mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax() - progress));
         mTvTimeRemaining.setText(String.valueOf(useMillis / 1000));
 
         return useMillis;
@@ -181,7 +178,7 @@ public class PlayFragment extends Fragment {
                 // Save how many seconds are remaining in case we need to restart with a new timer when the user pauses
                 millisRemaining = msTillFinished;
                 int progress = (int) (msTillFinished / 1000);
-                mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax()-progress));
+                mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax() - progress));
                 mTvTimeRemaining.setText(String.valueOf(progress));
             }
 
@@ -236,7 +233,7 @@ public class PlayFragment extends Fragment {
         };
     }
 
-    private void startPlay(){
+    private void startPlay() {
         long ms = resetProgressBar();
         // Start the timer
         mPracticeTimer = initTimer(ms, mCountdownIntervalMs);
