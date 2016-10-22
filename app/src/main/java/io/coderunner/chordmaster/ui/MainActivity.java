@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.model.Change;
 
-public class MainActivity extends AppCompatActivity implements PickFragment.ChordChangeListener {
+public class MainActivity extends AppCompatActivity implements PickFragment.ChordChangeListener, FirebaseUserProvider {
 
     public static String[] PRELOADED_CHORDS;
     private final String LOG_TAG = this.getClass().getSimpleName();
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements PickFragment.Chor
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private PlayFragment mPlayFragment = new PlayFragment();
+    private String mUserId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements PickFragment.Chor
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
                     Log.d(LOG_TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    mUserId = user.getUid();
                 } else {
                     // User is signed out
                     Log.d(LOG_TAG, "onAuthStateChanged:signed_out");
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements PickFragment.Chor
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(LOG_TAG, "login successful as " + mFirebaseAuth.getCurrentUser().getUid());
+                    mUserId = mFirebaseAuth.getCurrentUser().getUid();
                 } else {
                     Log.e(LOG_TAG, "Unable to login");
                 }
@@ -137,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements PickFragment.Chor
     @Override
     public void onChordChange(Change change) {
         mPlayFragment.chordChange(change);
+    }
+
+    @Override
+    public String getFirebaseUser() {
+        return mUserId;
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

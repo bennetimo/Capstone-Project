@@ -4,10 +4,14 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +38,7 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
 
     private Context mContext;
     private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDatabase;
     private String mUserId;
@@ -49,8 +54,37 @@ public class HistoryRemoteViewsFactory implements RemoteViewsService.RemoteViews
         Log.d(LOG_TAG, "Creating remote views factory");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mUserId = mFirebaseUser.getUid();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(LOG_TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    mUserId = user.getUid();
+                    getData();
+                } else {
+                    Log.d(LOG_TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
+
+        mFirebaseAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.d(LOG_TAG, "login successful as " + mFirebaseAuth.getCurrentUser().getUid());
+                    mUserId = mFirebaseAuth.getCurrentUser().getUid();
+                    getData();
+                } else {
+                    Log.e(LOG_TAG, "Unable to login");
+                }
+            }
+        });
+
+    }
+
+    private void getData(){
         mScoresRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext));
         getHistory();
     }

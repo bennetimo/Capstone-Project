@@ -22,8 +22,6 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -68,21 +66,34 @@ public class PlayFragment extends Fragment {
     private CountDownTimer mPracticeTimer;
     private Context mContext;
     private DatabaseReference mDatabase;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private String mUserId;
+
     private Change change;
 
     private long millisRemaining;
     private int COUNTDOWN_MS;
     private int LEADIN_MS;
 
+    private FirebaseUserProvider mCallback;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (FirebaseUserProvider) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement FirebaseUserProvider");
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -92,9 +103,6 @@ public class PlayFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         resetProgressBar();
-
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mUserId = mFirebaseUser.getUid();
 
         toggleFab(mBtnPause);
         mBtnPause.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +159,7 @@ public class PlayFragment extends Fragment {
     }
 
     public void addScore(int score) {
-        DatabaseReference newScoreRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).push();
+        DatabaseReference newScoreRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mCallback.getFirebaseUser()).child(Constants.getFirebaseLocationScores(mContext)).push();
         Score newScore = new Score(change, score);
         newScoreRef.setValue(newScore);
     }
