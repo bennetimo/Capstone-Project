@@ -12,7 +12,6 @@ import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.google.android.gms.ads.AdRequest;
@@ -28,20 +27,17 @@ import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.db.ChordsColumns;
 import io.coderunner.chordmaster.data.db.ChordsProvider;
-import io.coderunner.chordmaster.data.model.Change;
 import io.coderunner.chordmaster.data.model.Chord;
 import io.coderunner.chordmaster.task.RandomChangeTask;
 
 import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_WELCOME;
 
-public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PickFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @BindView(R.id.chord1)
     WheelPicker chord1Picker;
     @BindView(R.id.chord2)
     WheelPicker chord2Picker;
-    @BindView(R.id.btnChooseChord)
-    FloatingActionButton mBtnChooseChord;
     @BindView(R.id.btnRandomChord)
     FloatingActionButton mBtnRandomChord;
     @BindView(R.id.adView)
@@ -58,7 +54,7 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_welcome, container, false);
+        View root = inflater.inflate(R.layout.fragment_pick, container, false);
         ButterKnife.bind(this, root);
 
         // Render the banner ad
@@ -72,18 +68,6 @@ public class WelcomeFragment extends Fragment implements LoaderManager.LoaderCal
 
         initWheelPicker(chord1Picker);
         initWheelPicker(chord2Picker);
-
-        mBtnChooseChord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Chord chord1 = (Chord) chord1Picker.getData().get(chord1Picker.getCurrentItemPosition());
-                Chord chord2 = (Chord) chord2Picker.getData().get(chord2Picker.getCurrentItemPosition());
-                Change change = new Change(chord1, chord2);
-
-                Intent intent = new Intent(mContext, PracticeActivity.class).putExtra(Intent.EXTRA_TEXT, Parcels.wrap(change));
-                startActivity(intent);
-            }
-        });
 
         mBtnRandomChord.setOnClickListener(new View.OnClickListener() {
             @Override

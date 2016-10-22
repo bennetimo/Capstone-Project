@@ -14,7 +14,7 @@ import android.widget.RemoteViews;
 
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.service.WidgetRemoteViewsService;
-import io.coderunner.chordmaster.ui.WelcomeActivity;
+import io.coderunner.chordmaster.ui.MainActivity;
 
 public class HistoryWidgetProvider extends AppWidgetProvider {
 
@@ -31,7 +31,7 @@ public class HistoryWidgetProvider extends AppWidgetProvider {
             }
 
             // Create an intent to launch the app
-            Intent clickIntentTemplate = new Intent(context, WelcomeActivity.class);
+            Intent clickIntentTemplate = new Intent(context, MainActivity.class);
             PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
                     .addNextIntentWithParentStack(clickIntentTemplate)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

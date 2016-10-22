@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="io.coderunner.chordmaster.ui.PlayFragment">
+
+    <TextView
+        android:id="@+id/tvChordChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_large" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/pbPractice"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/countdown_bar_width"
+            android:layout_height="@dimen/countdown_bar_height"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/cd_timer"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/timer" />
+
+        <TextView
+            android:id="@+id/tvTimeRemaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/cd_time_remaining"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_countdown" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvPreviousBest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/lists_layout_margin"
+        android:contentDescription="@string/cd_previous_best"
+        android:gravity="bottom|center"
+        android:textSize="@dimen/font_size_small" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnPlay"
+        style="@style/FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margin_fab"
+        android:contentDescription="@string/cd_play"
+        android:src="@drawable/ic_play_arrow_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnPause"
+        style="@style/FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginBottom="80dp"
+        app:layout_anchor="@id/btnPlay"
+        app:layout_anchorGravity="top"
+        android:contentDescription="@string/cd_pause"
+        android:src="@drawable/ic_pause_white_24dp" />
+
+</android.support.design.widget.CoordinatorLayout>

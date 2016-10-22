@@ -10,7 +10,7 @@ import net.simonvt.schematic.annotation.Table;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import io.coderunner.chordmaster.ui.WelcomeActivity;
+import io.coderunner.chordmaster.ui.MainActivity;
 
 @Database(
         version = ChordsDatabase.VERSION,
@@ -27,7 +27,7 @@ public final class ChordsDatabase {
      * When the database is first created after the user installs the app, preload some common chords
      */
     public static void populateInitialChords(SQLiteDatabase db) {
-        ArrayList<String> chords = new ArrayList<>(Arrays.asList(WelcomeActivity.PRELOADED_CHORDS));
+        ArrayList<String> chords = new ArrayList<>(Arrays.asList(MainActivity.PRELOADED_CHORDS));
 
         for (String chord : chords) {
             ContentValues contentValues = new ContentValues();

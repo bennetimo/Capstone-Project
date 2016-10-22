@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static String[] PRELOADED_CHORDS;
     private final String LOG_TAG = this.getClass().getSimpleName();
@@ -94,7 +94,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new WelcomeFragment(), getString(R.string.tab_pick));
+        adapter.addFragment(new PickFragment(), getString(R.string.tab_pick));
+        adapter.addFragment(new PlayFragment(), getString(R.string.tab_play));
         adapter.addFragment(new HistoryFragment(), getString(R.string.tab_history));
         adapter.addFragment(new ChordsFragment(), getString(R.string.tab_chords));
         viewPager.setAdapter(adapter);

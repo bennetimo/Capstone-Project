@@ -2,6 +2,7 @@
 
     <!-- Tabs -->
     <string name="tab_pick">Pick</string>
+    <string name="tab_play">Play</string>
     <string name="tab_history">History</string>
     <string name="tab_chords">Chords</string>
 
@@ -60,12 +61,11 @@
     <string name="firebase_path_scores" translatable="false">scores</string>
 
     <!-- Content Descriptions -->
-    <string name="cd_chords_label">Pick Chords</string>
     <string name="cd_chord_1">Chord 1</string>
     <string name="cd_chord_1_picker">Chord 1</string>
     <string name="cd_chord_2">Chord 2</string>
     <string name="cd_chord_2_picker">Chord 2</string>
-    <string name="cd_choose_chord">Choose Chord</string>
+    <string name="cd_play">Play</string>
     <string name="cd_random_chord">Random Chord</string>
     <string name="cd_advert">Advert</string>
     <string name="cd_score_picker">Input number of changes</string>

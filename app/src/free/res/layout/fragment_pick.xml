@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="io.coderunner.chordmaster.ui.WelcomeFragment">
+    tools:context="io.coderunner.chordmaster.ui.PickFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -73,29 +72,13 @@
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnChooseChord"
+        android:id="@+id/btnRandomChord"
         style="@style/FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_fab"
-        android:src="@drawable/ic_play_arrow_white_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnRandomChord"
-        style="@style/FAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_marginBottom="80dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:src="@drawable/ic_swap_vert_white_24dp"
-        app:layout_anchor="@id/btnChooseChord"
-        app:layout_anchorGravity="top" />
+        android:src="@drawable/ic_swap_vert_white_24dp" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

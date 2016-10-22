@@ -11,13 +11,13 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,22 +38,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.model.Change;
+import io.coderunner.chordmaster.data.model.Chord;
 import io.coderunner.chordmaster.data.model.Score;
 import io.coderunner.chordmaster.util.Constants;
 
-public class PracticeFragment extends Fragment {
+public class PlayFragment extends Fragment {
 
     private final String LOG_TAG = this.getClass().getSimpleName();
     @BindView(R.id.pbPractice)
     ProgressBar mPbPractice;
     @BindView(R.id.btnPause)
-    Button mBtnStop;
+    FloatingActionButton mBtnPause;
     @BindView(R.id.tvTimeRemaining)
     TextView mTvTimeRemaining;
     @BindView(R.id.tvChordChange)
     TextView mTvChordChange;
     @BindView(R.id.tvPreviousBest)
     TextView mTvPreviousBest;
+    @BindView(R.id.btnPlay)
+    FloatingActionButton mBtnPlay;
     @BindInt(R.integer.countdown_ms)
     int mCountdownMs;
     @BindInt(R.integer.leadin_ms)
@@ -78,35 +81,29 @@ public class PracticeFragment extends Fragment {
     private String mUserId;
     private Change change;
 
+    private long millisRemaining;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity().getApplicationContext();
+        mContext = getActivity();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
         change = Parcels.unwrap(getActivity().getIntent().getParcelableExtra(Intent.EXTRA_TEXT));
+        change = new Change(new Chord("A"), new Chord("Am"));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_practice, container, false);
+        View root = inflater.inflate(R.layout.fragment_play, container, false);
         ButterKnife.bind(this, root);
 
         mTvChordChange.setText(change.getChangeString());
         mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
-        int leadinMs = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
-
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mUserId = mFirebaseUser.getUid();
-
-        int totalMs = countdownMs + leadinMs;
-        int totalSeconds = totalMs / 1000;
-
-        mPbPractice.setMax(totalSeconds);
 
         mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,10 +121,49 @@ public class PracticeFragment extends Fragment {
             }
         });
 
-        // Start the timer
-        mPracticeTimer = new CountDownTimer(totalMs, mCountdownIntervalMs) {
+        mBtnPause.setEnabled(false);
+        mBtnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPracticeTimer.cancel();
+                mBtnPause.setEnabled(false);
+                mBtnPlay.setEnabled(true);
+            }
+        });
+
+        mBtnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startPlay();
+                mBtnPlay.setEnabled(false);
+                mBtnPause.setEnabled(true);
+            }
+        });
+
+        return root;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mPracticeTimer != null) {
+            Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
+            mPracticeTimer.cancel();
+        }
+    }
+
+    public void addScore(int score) {
+        DatabaseReference newScoreRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).push();
+        Score newScore = new Score(change, score);
+        newScoreRef.setValue(newScore);
+    }
+
+    private CountDownTimer initTimer(long totalMs, long tickIntervalMs) {
+        return new CountDownTimer(totalMs, tickIntervalMs) {
             @Override
             public void onTick(long msTillFinished) {
+                // Save how many seconds are remaining in case we need to restart with a new timer when the user pauses
+                millisRemaining = msTillFinished;
                 int progress = (int) (msTillFinished / 1000);
                 mPbPractice.setProgress(mPbPractice.getMax() - progress);
                 mTvTimeRemaining.setText(String.valueOf(progress));
@@ -135,6 +171,8 @@ public class PracticeFragment extends Fragment {
 
             @Override
             public void onFinish() {
+                millisRemaining = 0;
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -162,14 +200,12 @@ public class PracticeFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 addScore(scorePicker.getValue());
                                 mp.stop();
-                                getActivity().finish();
                             }
                         });
                         builder.setNegativeButton(R.string.dialogue_times_up_cancel_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
                                 mp.stop();
-                                getActivity().finish();
                             }
                         });
 
@@ -179,30 +215,21 @@ public class PracticeFragment extends Fragment {
                 });
             }
         };
+    }
+
+    private void startPlay(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        int countdownMs = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
+        int leadinMs = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
+        int totalMs = countdownMs + leadinMs;
+        int totalSeconds = totalMs / 1000;
+
+        // Decide if we're resuming a timer or starting a new one
+        long useMillis = millisRemaining <= 0 ? totalMs : millisRemaining;
+
+        mPbPractice.setMax(totalSeconds);
+        // Start the timer
+        mPracticeTimer = initTimer(useMillis, mCountdownIntervalMs);
         mPracticeTimer.start();
-
-        mBtnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPracticeTimer.cancel();
-            }
-        });
-
-        return root;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mPracticeTimer != null) {
-            Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
-            mPracticeTimer.cancel();
-        }
-    }
-
-    public void addScore(int score) {
-        DatabaseReference newScoreRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mUserId).child(Constants.getFirebaseLocationScores(mContext)).push();
-        Score newScore = new Score(change, score);
-        newScoreRef.setValue(newScore);
     }
 }
