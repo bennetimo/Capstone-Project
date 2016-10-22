@@ -28,6 +28,8 @@ import io.coderunner.chordmaster.data.model.Change;
 import io.coderunner.chordmaster.data.model.Chord;
 import io.coderunner.chordmaster.task.RandomChangeTask;
 
+import static io.coderunner.chordmaster.util.Constants.CHORD1_BUNDLE_KEY;
+import static io.coderunner.chordmaster.util.Constants.CHORD2_BUNDLE_KEY;
 import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_WELCOME;
 
 public class PickFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -87,6 +89,14 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
 
         initWheelPicker(chord1Picker);
         initWheelPicker(chord2Picker);
+
+        // If we have saved the chosen chords, reload them
+        if(savedInstanceState != null){
+            int savedChord1 = savedInstanceState.getInt(CHORD1_BUNDLE_KEY);
+            int savedChord2 = savedInstanceState.getInt(CHORD2_BUNDLE_KEY);
+            chord1Picker.setSelectedItemPosition(savedChord1);
+            chord2Picker.setSelectedItemPosition(savedChord2);
+        }
 
         mBtnRandomChord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,4 +159,13 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save the state of the chord pickers
+        outState.putInt(CHORD1_BUNDLE_KEY, chord1Picker.getCurrentItemPosition());
+        outState.putInt(CHORD2_BUNDLE_KEY, chord2Picker.getCurrentItemPosition());
+    }
+
 }

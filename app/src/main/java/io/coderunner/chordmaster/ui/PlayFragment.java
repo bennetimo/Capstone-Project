@@ -143,8 +143,10 @@ public class PlayFragment extends Fragment {
     public void chordChange(Change c) {
         if (c != null) {
             change = c;
-            mTvChordChange.setText(change.getChangeString());
-            mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
+            if(mTvChordChange != null){
+                mTvChordChange.setText(change.getChangeString());
+                mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
+            }
         }
     }
 
