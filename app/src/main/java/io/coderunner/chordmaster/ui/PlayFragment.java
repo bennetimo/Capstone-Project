@@ -32,6 +32,8 @@ import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.model.Change;
 import io.coderunner.chordmaster.data.model.Score;
+import io.coderunner.chordmaster.ui.ads.AdHolder;
+import io.coderunner.chordmaster.ui.ads.FlavourAdHolder;
 import io.coderunner.chordmaster.util.Constants;
 
 public class PlayFragment extends Fragment {
@@ -74,6 +76,7 @@ public class PlayFragment extends Fragment {
     private int LEADIN_MS;
 
     private FirebaseUserProvider mCallback;
+    private AdHolder mAdHolder;
 
     @Override
     public void onAttach(Context context) {
@@ -94,6 +97,7 @@ public class PlayFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAdHolder = new FlavourAdHolder(mContext);
     }
 
     @Override
@@ -228,12 +232,13 @@ public class PlayFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 addScore(scorePicker.getValue());
                                 mp.stop();
+                                nextPlay();
                             }
                         });
                         builder.setNegativeButton(R.string.dialogue_times_up_cancel_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
                                 mp.stop();
+                                nextPlay();
                             }
                         });
 
@@ -243,6 +248,10 @@ public class PlayFragment extends Fragment {
                 });
             }
         };
+    }
+
+    private void nextPlay(){
+        mAdHolder.showAdIfAvailable();
     }
 
     private void startPlay() {

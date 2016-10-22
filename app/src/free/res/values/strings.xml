@@ -5,6 +5,6 @@
 
     <!-- Firebase Ads -->
     <string name="firebase_ads_app_id">ca-app-pub-3321887252159948~2413124712</string>
-    <string name="firebase_ads_banner_welcome_screen">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="firebase_ads_interstitial_post_practice">ca-app-pub-3321887252159948/5191683910</string>
 
 </resources>

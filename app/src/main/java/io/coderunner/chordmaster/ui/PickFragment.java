@@ -13,9 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aigestudio.wheelpicker.WheelPicker;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
@@ -40,11 +37,10 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
     WheelPicker chord2Picker;
     @BindView(R.id.btnRandomChord)
     FloatingActionButton mBtnRandomChord;
-    @BindView(R.id.adView)
-    AdView mAdView;
     private Context mContext;
 
     private ChordChangeListener mCallback;
+
 
     // Container Activity must implement this interface
     public interface ChordChangeListener {
@@ -69,7 +65,6 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity().getApplicationContext();
-        MobileAds.initialize(mContext, getString(R.string.firebase_ads_app_id));
     }
 
     @Override
@@ -77,13 +72,6 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pick, container, false);
         ButterKnife.bind(this, root);
-
-        // Render the banner ad
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice(getString(R.string.test_device_id))
-                .build();
-        mAdView.loadAd(adRequest);
 
         getLoaderManager().initLoader(LOADER_ID_FRAG_WELCOME, null, this);
 
