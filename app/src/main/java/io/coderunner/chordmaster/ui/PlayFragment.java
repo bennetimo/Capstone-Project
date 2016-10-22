@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.parceler.Parcels;
+
 import butterknife.BindInt;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -36,6 +38,7 @@ import io.coderunner.chordmaster.ui.ads.AdHolder;
 import io.coderunner.chordmaster.ui.ads.FlavourAdHolder;
 import io.coderunner.chordmaster.util.Constants;
 
+import static io.coderunner.chordmaster.util.Constants.CHORD_CHANGE_KEY;
 import static io.coderunner.chordmaster.util.Constants.TIME_REMAINING_KEY;
 
 public class PlayFragment extends Fragment {
@@ -118,6 +121,7 @@ public class PlayFragment extends Fragment {
         // If we are resuming, continue the timer where we left off
         if(savedInstanceState != null){
             millisRemaining = savedInstanceState.getLong(TIME_REMAINING_KEY);
+            change = Parcels.unwrap(savedInstanceState.getParcelable(CHORD_CHANGE_KEY));
             Log.d(LOG_TAG, "Resuming timer with " + millisRemaining + "ms remaining");
             startPractice();
         } else {
@@ -142,6 +146,7 @@ public class PlayFragment extends Fragment {
             }
         });
 
+        displayChordChange();
         return root;
     }
 
@@ -162,6 +167,9 @@ public class PlayFragment extends Fragment {
             outState.putLong(TIME_REMAINING_KEY, millisRemaining);
             Log.d(LOG_TAG, "Saving timer to bundle with " + millisRemaining + "ms remaining");
         }
+        if(change != null){
+            outState.putParcelable(CHORD_CHANGE_KEY, Parcels.wrap(change));
+        }
     }
 
     private void toggleFab(FloatingActionButton fab) {
@@ -179,10 +187,14 @@ public class PlayFragment extends Fragment {
     public void chordChange(Change c) {
         if (c != null) {
             change = c;
-            if(mTvChordChange != null){
-                mTvChordChange.setText(change.getChangeString());
-                mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
-            }
+            displayChordChange();
+        }
+    }
+
+    private void displayChordChange(){
+        if(mTvChordChange != null && change != null){
+            mTvChordChange.setText(change.getChangeString());
+            mTvChordChange.setContentDescription(change.getChord1().getName() + " to " + change.getChord2().getName());
         }
     }
 

@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -27,6 +29,7 @@ import io.coderunner.chordmaster.task.RandomChangeTask;
 
 import static io.coderunner.chordmaster.util.Constants.CHORD1_BUNDLE_KEY;
 import static io.coderunner.chordmaster.util.Constants.CHORD2_BUNDLE_KEY;
+import static io.coderunner.chordmaster.util.Constants.CHORD_CHANGE_KEY;
 import static io.coderunner.chordmaster.util.Constants.LOADER_ID_FRAG_WELCOME;
 
 public class PickFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -84,6 +87,8 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
             int savedChord2 = savedInstanceState.getInt(CHORD2_BUNDLE_KEY);
             chord1Picker.setSelectedItemPosition(savedChord1);
             chord2Picker.setSelectedItemPosition(savedChord2);
+            Change change = Parcels.unwrap(savedInstanceState.getParcelable(CHORD_CHANGE_KEY));
+            mCallback.onChordChange(change);
         }
 
         mBtnRandomChord.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +160,7 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
             // Save the state of the chord pickers
             outState.putInt(CHORD1_BUNDLE_KEY, chord1Picker.getCurrentItemPosition());
             outState.putInt(CHORD2_BUNDLE_KEY, chord2Picker.getCurrentItemPosition());
+            outState.putParcelable(CHORD_CHANGE_KEY, Parcels.wrap(getSelectedChange()));
         }
     }
 
