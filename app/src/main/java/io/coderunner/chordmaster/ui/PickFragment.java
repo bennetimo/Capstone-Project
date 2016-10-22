@@ -151,9 +151,11 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // Save the state of the chord pickers
-        outState.putInt(CHORD1_BUNDLE_KEY, chord1Picker.getCurrentItemPosition());
-        outState.putInt(CHORD2_BUNDLE_KEY, chord2Picker.getCurrentItemPosition());
+        if(chord1Picker != null && chord2Picker != null) {
+            // Save the state of the chord pickers
+            outState.putInt(CHORD1_BUNDLE_KEY, chord1Picker.getCurrentItemPosition());
+            outState.putInt(CHORD2_BUNDLE_KEY, chord2Picker.getCurrentItemPosition());
+        }
     }
 
 }
