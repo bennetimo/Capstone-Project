@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
@@ -39,6 +42,8 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
 
     private ChordsCursorAdapter mCursorAdapter;
 
+    private Pattern mPattern;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,8 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         getLoaderManager().initLoader(LOADER_ID_FRAG_CHORDS, null, this);
         mRecyclerViewChords.setAdapter(mCursorAdapter);
 
+        mPattern = Pattern.compile(getActivity().getString(R.string.input_regex_pattern));
+
         mFabAddChord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,30 +71,44 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
                         .input(R.string.dialogue_add_chord_hint, R.string.dialogue_add_chord_prefill, new MaterialDialog.InputCallback() {
                             @Override
                             public void onInput(MaterialDialog dialog, CharSequence input) {
-                                // Check if the chord exists, if it doesn't, add it
-                                Cursor c = getActivity().getContentResolver().query(ChordsProvider.Chords.CHORDS_URI,
-                                        new String[]{ChordsColumns.NAME}, ChordsColumns.NAME + "= ?",
-                                        new String[]{input.toString()}, null);
-                                if (c.getCount() != 0) {
-                                    Toast toast =
-                                            Toast.makeText(getActivity(), getActivity().getString(R.string.dialogue_error_chord_exists),
-                                                    Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                                    toast.show();
-                                    return;
-                                } else {
-                                    // Add the chord to the DB
-                                    ContentValues contentValues = new ContentValues();
-                                    contentValues.put(ChordsColumns.NAME, input.toString());
-                                    getActivity().getContentResolver().insert(ChordsProvider.Chords.CHORDS_URI, contentValues);
-                                }
+                            if(checkChordValid(input.toString())){
+                                // Add the chord to the DB
+                                ContentValues contentValues = new ContentValues();
+                                contentValues.put(ChordsColumns.NAME, input.toString());
+                                getActivity().getContentResolver().insert(ChordsProvider.Chords.CHORDS_URI, contentValues);
+                            }
                             }
                         })
                         .show();
-
             }
         });
         return root;
+    }
+
+    private boolean checkChordValid(String chordName){
+        // Check if the chord name is valid
+        Matcher matcher = mPattern.matcher(chordName);
+        if(!matcher.matches()){
+            toast(getActivity().getString(R.string.dialogue_error_chord_not_valid));
+            return false;
+        }
+        // Check if the chord exists, if it doesn't, add it
+        Cursor c = getActivity().getContentResolver().query(ChordsProvider.Chords.CHORDS_URI,
+                new String[]{ChordsColumns.NAME}, ChordsColumns.NAME + "= ?",
+                new String[]{chordName.toString()}, null);
+        if (c.getCount() != 0) {
+            toast(getActivity().getString(R.string.dialogue_error_chord_exists));
+            return false;
+        }
+        return true;
+    }
+
+    private void toast(String message){
+        Toast toast =
+                Toast.makeText(getActivity(), message,
+                        Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+        toast.show();
     }
 
     @Override

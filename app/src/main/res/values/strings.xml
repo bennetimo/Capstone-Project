@@ -26,9 +26,10 @@
     <!-- Chords -->
     <string name="dialogue_add_chord_title">Add Chord</string>
     <string name="dialogue_add_chord_content">Enter name of chord:</string>
-    <string name="dialogue_add_chord_hint" translatable="false">Am</string>
+    <string name="dialogue_add_chord_hint" translatable="false">e.g. Am</string>
     <string name="dialogue_add_chord_prefill"></string>
     <string name="dialogue_error_chord_exists">You already have that chord!</string>
+    <string name="dialogue_error_chord_not_valid">Oops, that chord name looks funny! Use lower and upper letters, and numbers</string>
     <string name="chords_typeface" translatable="false">fonts/Roboto-Light.ttf</string>
 
     <!-- History -->
@@ -55,6 +56,7 @@
     <string name="no_data">No history yet, get strumming!</string>
     <string name="test_device_id" translatable="false">3D7A81A8C6EFE58743D4EA139908457B</string>
     <string name="date_format_pattern" translatable="false">MMM dd HH:mm</string>
+    <string name="input_regex_pattern" translatable="false">[a-zA-Z0-9]+</string>
 
     <!-- Firebase -->
     <string name="firebase_path_users" translatable="false">users</string>
