@@ -59,7 +59,6 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         DatabaseReference scoresRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mCallback.getFirebaseUser()).child(Constants.getFirebaseLocationScores(mContext));
-        mHistoryAdapter = new HistoryAdapter(Score.class, R.layout.list_item_history, HistoryHolder.class, scoresRef);
 
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         ButterKnife.bind(this, root);
@@ -67,6 +66,7 @@ public class HistoryFragment extends Fragment {
         mRecyclerViewHistory.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerViewHistory.setAdapter(mHistoryAdapter);
         mRecyclerViewHistory.setEmptyView(mEmptyView);
+        mHistoryAdapter = new HistoryAdapter(Score.class, R.layout.list_item_history, HistoryHolder.class, scoresRef, mRecyclerViewHistory);
         return root;
     }
 
