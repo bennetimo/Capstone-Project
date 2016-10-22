@@ -15,19 +15,20 @@
         android:id="@+id/tvChordChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
+        android:layout_gravity="top"
+        android:gravity="top"
         android:textSize="@dimen/font_size_large" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <ProgressBar
             android:id="@+id/pbPractice"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="@dimen/countdown_bar_width"
-            android:layout_height="@dimen/countdown_bar_height"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:contentDescription="@string/cd_timer"
             android:indeterminate="false"

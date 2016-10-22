@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -121,13 +122,13 @@ public class PlayFragment extends Fragment {
             }
         });
 
-        mBtnPause.setEnabled(false);
+        toggleFab(mBtnPause);
         mBtnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPracticeTimer.cancel();
-                mBtnPause.setEnabled(false);
-                mBtnPlay.setEnabled(true);
+                toggleFab(mBtnPause);
+                toggleFab(mBtnPlay);
             }
         });
 
@@ -135,12 +136,25 @@ public class PlayFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startPlay();
-                mBtnPlay.setEnabled(false);
-                mBtnPause.setEnabled(true);
+                toggleFab(mBtnPause);
+                toggleFab(mBtnPlay);
             }
         });
+        mBtnPause.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.background)));
 
         return root;
+    }
+
+    private void toggleFab(FloatingActionButton fab){
+        if(fab.isEnabled()){
+            // Disable it
+            fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.background)));
+            fab.setEnabled(false);
+        } else {
+            // Enable it
+            fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.lightBlueA400)));
+            fab.setEnabled(true);
+        }
     }
 
     @Override
@@ -172,6 +186,8 @@ public class PlayFragment extends Fragment {
             @Override
             public void onFinish() {
                 millisRemaining = 0;
+                toggleFab(mBtnPause);
+                toggleFab(mBtnPlay);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
