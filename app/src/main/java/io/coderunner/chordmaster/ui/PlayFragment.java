@@ -49,10 +49,10 @@ public class PlayFragment extends Fragment {
     TextView mTvChordChange;
     @BindView(R.id.btnPlay)
     FloatingActionButton mBtnPlay;
-    @BindInt(R.integer.countdown_ms)
-    int mCountdownMs;
-    @BindInt(R.integer.leadin_ms)
-    int mLeadinMs;
+    @BindInt(R.integer.default_countdown_seconds)
+    int mDefaultCountdownSeconds;
+    @BindInt(R.integer.default_leadin_seconds)
+    int mDefaultLeadinSeconds;
     @BindInt(R.integer.countdown_interval_ms)
     int mCountdownIntervalMs;
     @BindInt(R.integer.score_picker_max_value)
@@ -156,8 +156,10 @@ public class PlayFragment extends Fragment {
 
     private long resetProgressBar() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        COUNTDOWN_MS = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, "" + (mCountdownMs / 1000))) * 1000;
-        LEADIN_MS = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, "" + (mLeadinMs / 1000))) * 1000;
+        // Extra box/unbox because preferences are always stored as strings, even if they are type number...
+        // http://stackoverflow.com/questions/17844511/android-preferences-error-string-cannot-be-cast-to-int
+        COUNTDOWN_MS = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, String.valueOf(mDefaultCountdownSeconds))) * 1000;
+        LEADIN_MS = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, String.valueOf(mDefaultLeadinSeconds))) * 1000;
         int totalMs = COUNTDOWN_MS + LEADIN_MS;
         int totalSeconds = totalMs / 1000;
 

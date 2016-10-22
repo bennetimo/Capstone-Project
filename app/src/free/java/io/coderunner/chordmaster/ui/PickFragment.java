@@ -97,9 +97,6 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
             }
         });
 
-        // Move the chord wheels into random positions on first view
-        mBtnRandomChord.performClick();
-
         return root;
     }
 
@@ -144,6 +141,8 @@ public class PickFragment extends Fragment implements LoaderManager.LoaderCallba
             }
             chord1Picker.setData(swap);
             chord2Picker.setData(swap);
+            // Trigger initial chord change
+            mCallback.onChordChange(getSelectedChange());
         }
     }
 
