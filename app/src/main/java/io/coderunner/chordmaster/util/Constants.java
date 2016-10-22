@@ -11,6 +11,7 @@ public class Constants {
 
     public static final String CHORD1_BUNDLE_KEY = "CHORD1";
     public static final String CHORD2_BUNDLE_KEY = "CHORD2";
+    public static final String TIME_REMAINING_KEY = "TIMER";
 
     // Firebase
     public static String getFirebaseLocationUsers(Context context) {

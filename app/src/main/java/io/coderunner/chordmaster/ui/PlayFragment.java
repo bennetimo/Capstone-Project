@@ -36,6 +36,8 @@ import io.coderunner.chordmaster.ui.ads.AdHolder;
 import io.coderunner.chordmaster.ui.ads.FlavourAdHolder;
 import io.coderunner.chordmaster.util.Constants;
 
+import static io.coderunner.chordmaster.util.Constants.TIME_REMAINING_KEY;
+
 public class PlayFragment extends Fragment {
 
     private final String LOG_TAG = this.getClass().getSimpleName();
@@ -106,13 +108,28 @@ public class PlayFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_play, container, false);
         ButterKnife.bind(this, root);
 
-        resetProgressBar();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        toggleFab(mBtnPause);
+        // Extra box/unbox because preferences are always stored as strings, even if they are type number...
+        // http://stackoverflow.com/questions/17844511/android-preferences-error-string-cannot-be-cast-to-int
+        COUNTDOWN_MS = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, String.valueOf(mDefaultCountdownSeconds))) * 1000;
+        LEADIN_MS = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, String.valueOf(mDefaultLeadinSeconds))) * 1000;
+
+        // If we are resuming, continue the timer where we left off
+        if(savedInstanceState != null){
+            millisRemaining = savedInstanceState.getLong(TIME_REMAINING_KEY);
+            Log.d(LOG_TAG, "Resuming timer with " + millisRemaining + "ms remaining");
+            startPractice();
+        } else {
+            toggleFab(mBtnPause); //Disable pause if we're starting from fresh
+            resetPractice();
+        }
+
         mBtnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPracticeTimer.cancel();
+                resetPractice();
                 toggleFab(mBtnPause);
                 toggleFab(mBtnPlay);
             }
@@ -121,12 +138,9 @@ public class PlayFragment extends Fragment {
         mBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startPlay();
-                toggleFab(mBtnPause);
-                toggleFab(mBtnPlay);
+                startPractice();
             }
         });
-        mBtnPause.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.background)));
 
         return root;
     }
@@ -137,6 +151,16 @@ public class PlayFragment extends Fragment {
         if (mPracticeTimer != null) {
             Log.d(LOG_TAG, "Cancelling timer as fragment is paused");
             mPracticeTimer.cancel();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(millisRemaining > 0){
+            //The timer was in progress, add it to the bundle so that we can restart it when we resume
+            outState.putLong(TIME_REMAINING_KEY, millisRemaining);
+            Log.d(LOG_TAG, "Saving timer to bundle with " + millisRemaining + "ms remaining");
         }
     }
 
@@ -168,18 +192,14 @@ public class PlayFragment extends Fragment {
         newScoreRef.setValue(newScore);
     }
 
-    private long resetProgressBar() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        // Extra box/unbox because preferences are always stored as strings, even if they are type number...
-        // http://stackoverflow.com/questions/17844511/android-preferences-error-string-cannot-be-cast-to-int
-        COUNTDOWN_MS = Integer.valueOf(sharedPref.getString(mCountdownTimeKey, String.valueOf(mDefaultCountdownSeconds))) * 1000;
-        LEADIN_MS = Integer.valueOf(sharedPref.getString(mLeadinTimeKey, String.valueOf(mDefaultLeadinSeconds))) * 1000;
+    private long resetPractice(){
         int totalMs = COUNTDOWN_MS + LEADIN_MS;
         int totalSeconds = totalMs / 1000;
 
         // Decide if we're resuming a timer or starting a new one
         long useMillis = millisRemaining <= 0 ? totalMs : millisRemaining;
         mPbPractice.setMax(totalSeconds);
+
         int progress = (int) (useMillis / 1000);
         mPbPractice.setProgress(mPbPractice.getMax() - (mPbPractice.getMax() - progress));
         mTvTimeRemaining.setText(String.valueOf(useMillis / 1000));
@@ -203,7 +223,7 @@ public class PlayFragment extends Fragment {
                 millisRemaining = 0;
                 toggleFab(mBtnPause);
                 toggleFab(mBtnPlay);
-                resetProgressBar();
+                resetPractice();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -254,10 +274,19 @@ public class PlayFragment extends Fragment {
         mAdHolder.showAdIfAvailable();
     }
 
-    private void startPlay() {
-        long ms = resetProgressBar();
+    // When we've just started the timer, pause should be enabled, play disabled
+    public void initFabs(){
+        if(!mBtnPause.isEnabled())
+            toggleFab(mBtnPause);
+        if(mBtnPlay.isEnabled())
+            toggleFab(mBtnPlay);
+    }
+
+    private void startPractice() {
+        long ms = resetPractice();
         // Start the timer
         mPracticeTimer = initTimer(ms, mCountdownIntervalMs);
         mPracticeTimer.start();
+        initFabs();
     }
 }
