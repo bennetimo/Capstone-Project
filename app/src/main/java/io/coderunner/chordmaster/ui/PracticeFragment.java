@@ -162,12 +162,14 @@ public class PracticeFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 addScore(scorePicker.getValue());
                                 mp.stop();
+                                getActivity().finish();
                             }
                         });
                         builder.setNegativeButton(R.string.dialogue_times_up_cancel_button, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
                                 mp.stop();
+                                getActivity().finish();
                             }
                         });
 
