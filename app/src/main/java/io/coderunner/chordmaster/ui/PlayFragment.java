@@ -39,6 +39,7 @@ import io.coderunner.chordmaster.ui.ads.FlavourAdHolder;
 import io.coderunner.chordmaster.util.Constants;
 
 import static io.coderunner.chordmaster.util.Constants.CHORD_CHANGE_KEY;
+import static io.coderunner.chordmaster.util.Constants.PAUSED_KEY;
 import static io.coderunner.chordmaster.util.Constants.TIME_REMAINING_KEY;
 
 public class PlayFragment extends Fragment {
@@ -122,8 +123,16 @@ public class PlayFragment extends Fragment {
         if(savedInstanceState != null){
             millisRemaining = savedInstanceState.getLong(TIME_REMAINING_KEY);
             change = Parcels.unwrap(savedInstanceState.getParcelable(CHORD_CHANGE_KEY));
-            Log.d(LOG_TAG, "Resuming timer with " + millisRemaining + "ms remaining");
-            startPractice();
+
+            boolean wasPaused = savedInstanceState.getBoolean(PAUSED_KEY);
+            if(!wasPaused) {
+                Log.d(LOG_TAG, "Resuming timer with " + millisRemaining + "ms remaining");
+                startPractice();
+            } else {
+                toggleFab(mBtnPause); //Disable pause if we're starting from fresh
+                resetPractice();    
+            }
+
         } else {
             toggleFab(mBtnPause); //Disable pause if we're starting from fresh
             resetPractice();
@@ -170,6 +179,7 @@ public class PlayFragment extends Fragment {
         if(change != null){
             outState.putParcelable(CHORD_CHANGE_KEY, Parcels.wrap(change));
         }
+        outState.putBoolean(PAUSED_KEY, !mBtnPause.isEnabled());
     }
 
     private void toggleFab(FloatingActionButton fab) {
