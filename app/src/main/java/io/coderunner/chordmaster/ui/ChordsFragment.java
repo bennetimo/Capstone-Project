@@ -12,6 +12,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,8 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
     @BindView(R.id.recyclerview_chords)
     RecyclerView mRecyclerViewChords;
     private Context mContext;
+
+    private final String LOG_TAG = this.getClass().getSimpleName();
 
     private ChordsCursorAdapter mCursorAdapter;
 
@@ -90,6 +93,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
         Matcher matcher = mPattern.matcher(chordName);
         if(!matcher.matches()){
             toast(getActivity().getString(R.string.dialogue_error_chord_not_valid));
+            Log.d(LOG_TAG, "Chord name input was invalid: " + chordName);
             return false;
         }
         // Check if the chord exists, if it doesn't, add it
@@ -98,6 +102,7 @@ public class ChordsFragment extends Fragment implements LoaderManager.LoaderCall
                 new String[]{chordName.toString()}, null);
         if (c.getCount() != 0) {
             toast(getActivity().getString(R.string.dialogue_error_chord_exists));
+            Log.d(LOG_TAG, "Chord name input was invalid: " + chordName);
             return false;
         }
         return true;
