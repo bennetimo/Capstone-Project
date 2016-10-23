@@ -46,13 +46,13 @@ This app makes use of:
 
 ## Video
 
-[![Chord Master Video](../master/promo/popular_movies.gif)]
+![Chord Master Video](../master/promo/promo.gif)
 
 ## Images
 
-[![Pick Chords](../master/promo/pick.png)][![Timer](../master/promo/timer.png)][![Time's Up](../master/promo/timesup.png)]
-[![Chords](../master/promo/chords.png)][![History](../master/promo/history.png)][![Settings](../master/promo/settings.png)]
-[![Widget](../master/promo/widget.png)]
+![Pick Chords](../master/promo/pick.png)![Timer](../master/promo/timer.png)![Time's Up](../master/promo/timesup.png)
+![Chords](../master/promo/chords.png)![History](../master/promo/history.png)![Settings](../master/promo/settings.png)
+![Widget](../master/promo/widget.png)
 
 ## Third Party Libraries/Resources
 
