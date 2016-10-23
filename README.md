@@ -39,7 +39,6 @@ This project makes use of:
 * [Parceler](https://github.com/johncarl81/parceler)
 * [Material Dialogues](https://github.com/afollestad/material-dialogs)
 * [Wheel Picker](https://github.com/AigeStudio/WheelPicker)
-* [Stetho](http://facebook.github.io/stetho/)
 * [Android Support App Compat](https://developer.android.com/topic/libraries/support-library/features.html)
 * [Android Support Design](https://developer.android.com/topic/libraries/support-library/features.html)
 * [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html)
