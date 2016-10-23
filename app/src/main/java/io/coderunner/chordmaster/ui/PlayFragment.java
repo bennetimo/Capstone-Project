@@ -130,7 +130,7 @@ public class PlayFragment extends Fragment {
                 startPractice();
             } else {
                 toggleFab(mBtnPause); //Disable pause if we're starting from fresh
-                resetPractice();    
+                resetPractice();
             }
 
         } else {

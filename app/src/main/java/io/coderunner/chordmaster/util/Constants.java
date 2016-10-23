@@ -14,6 +14,8 @@ public class Constants {
     public static final String TIME_REMAINING_KEY = "TIMER";
     public static final String CHORD_CHANGE_KEY = "CHORDCHANGE";
     public static final String PAUSED_KEY = "PAUSED";
+    public static final String HISTORY_STATE_KEYS_KEY = "HISTORY_KEYS";
+    public static final String HISTORY_STATE_ITEMS_KEY = "HISTORY_ITEMS";
 
     // Firebase
     public static String getFirebaseLocationUsers(Context context) {

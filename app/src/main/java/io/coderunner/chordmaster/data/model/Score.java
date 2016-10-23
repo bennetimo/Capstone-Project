@@ -2,11 +2,17 @@ package io.coderunner.chordmaster.data.model;
 
 import com.google.firebase.database.ServerValue;
 
+import org.parceler.Parcel;
+import org.parceler.Transient;
+
+@Parcel
 public class Score {
 
     public Change change;
     public int score;
+    @Transient
     public Object time;
+    public long timestamp;
 
     public Score() {
     }
@@ -23,6 +29,10 @@ public class Score {
         } else {
             return null;
         }
+    }
+
+    public void setCreatedTimestamp(long timestamp){
+        this.timestamp = timestamp;
     }
 
     public Change getChange() {

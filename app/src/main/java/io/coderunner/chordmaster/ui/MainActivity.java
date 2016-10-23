@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements PickFragment.Chor
         super.onCreate(savedInstanceState);
         Stetho.initializeWithDefaults(this);
 
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         PRELOADED_CHORDS = getResources().getStringArray(R.array.preloaded_chords);

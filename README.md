@@ -33,7 +33,7 @@ This project makes use of:
 * [Firebase Analytics](https://firebase.google.com/docs/analytics/)
 * [Firebase Ads](https://firebase.google.com/docs/admob/)
 * [Firebase Database](https://firebase.google.com/docs/database/)
-* [Firebase UI](https://github.com/firebase/FirebaseUI-Android)
+* [Firebase RecyclerView](https://github.com/mmazzarolo/firebase-recyclerview)
 * [Butterknife ](http://jakewharton.github.io/butterknife/)
 * [Schematic](https://github.com/SimonVT/schematic)
 * [Parceler](https://github.com/johncarl81/parceler)

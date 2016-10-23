@@ -13,13 +13,19 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.coderunner.chordmaster.R;
 import io.coderunner.chordmaster.data.HistoryAdapter;
-import io.coderunner.chordmaster.data.HistoryHolder;
 import io.coderunner.chordmaster.data.model.Score;
 import io.coderunner.chordmaster.util.Constants;
+
+import static io.coderunner.chordmaster.util.Constants.HISTORY_STATE_ITEMS_KEY;
+import static io.coderunner.chordmaster.util.Constants.HISTORY_STATE_KEYS_KEY;
 
 public class HistoryFragment extends Fragment {
 
@@ -31,6 +37,7 @@ public class HistoryFragment extends Fragment {
 
     private HistoryAdapter mHistoryAdapter;
     private DatabaseReference mDatabase;
+    private LinearLayoutManager mLayoutManager;
 
     private FirebaseUserProvider mCallback;
 
@@ -60,15 +67,40 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         DatabaseReference scoresRef = mDatabase.child(Constants.getFirebaseLocationUsers(mContext)).child(mCallback.getFirebaseUser()).child(Constants.getFirebaseLocationScores(mContext));
 
+
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         ButterKnife.bind(this, root);
+
+        mLayoutManager = new LinearLayoutManager(mContext);
+
         mRecyclerViewHistory.setHasFixedSize(true);
-        mRecyclerViewHistory.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerViewHistory.setAdapter(mHistoryAdapter);
+        mRecyclerViewHistory.setLayoutManager(mLayoutManager);
         mRecyclerViewHistory.setEmptyView(mEmptyView);
-        mHistoryAdapter = new HistoryAdapter(Score.class, R.layout.list_item_history, HistoryHolder.class, scoresRef, mRecyclerViewHistory);
+
+        if(savedInstanceState != null) {
+            // Restore the saved history view
+            ArrayList<String> keys = savedInstanceState.getStringArrayList(HISTORY_STATE_KEYS_KEY);
+            ArrayList<Score> items = Parcels.unwrap(savedInstanceState.getParcelable(HISTORY_STATE_ITEMS_KEY));
+            mHistoryAdapter = new HistoryAdapter(scoresRef, Score.class, items, keys, mRecyclerViewHistory);
+        } else {
+            mHistoryAdapter = new HistoryAdapter(scoresRef, Score.class, new ArrayList<Score>(), new ArrayList<String>(), mRecyclerViewHistory);
+        }
+
+        mRecyclerViewHistory.setAdapter(mHistoryAdapter);
+        mRecyclerViewHistory.checkIfEmpty();
         return root;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(HISTORY_STATE_ITEMS_KEY, Parcels.wrap(mHistoryAdapter.getItems()));
+        outState.putStringArrayList(HISTORY_STATE_KEYS_KEY, mHistoryAdapter.getKeys());
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHistoryAdapter.destroy();
+    }
 }
