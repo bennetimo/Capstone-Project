@@ -24,7 +24,7 @@ What are you waiting for, get strumming with Chord Master!
 ## How To Use
 
 1. Open the app and you will see the 'Pick' tab. Here you can pick two chords that you want to practice changing between, or press the arrow button for a random change
-1. When you selected the chord you want to practice, swipe to the 'Play' tab. Now get your guitar ready, and hit the play button!
+1. When you have selected the chord you want to practice, swipe to the 'Play' tab. Now get your guitar ready, and hit the play button!
 1. After a short amount of leadin time (configurable in the settings), the timer will be counting down. Now you should try to do as many chord changes between the two
 chords as you can. Go for speed but don't sacrifice accuracy.
 1. When the time is up, a notification will sound. A screen will display to input how many chord changes you managed
