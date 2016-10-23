@@ -19,6 +19,7 @@ What are you waiting for, get strumming with Chord Master!
 * Track the history of all the practice sessions you have had
 * Add new chords (the app ships with a default set of base chords)
 * Free and Paid flavours (Free contains an interstitial advert after a practice)
+* Widget showing your practice history
 
 ## How To Use
 
@@ -43,11 +44,15 @@ This app makes use of:
 * Firebase Database: For persisting your practice history
 * SQLite with a Content Provider: For persistent the customisable collection of chords
 
-## Images
-
-
 ## Video
 
+[![Chord Master Video](../master/promo/popular_movies.gif)]
+
+## Images
+
+[![Pick Chords](../master/promo/pick.png)][![Timer](../master/promo/timer.png)][![Time's Up](../master/promo/timesup.png)]
+[![Chords](../master/promo/chords.png)][![History](../master/promo/history.png)][![Settings](../master/promo/settings.png)]
+[![Widget](../master/promo/widget.png)]
 
 ## Third Party Libraries/Resources
 
