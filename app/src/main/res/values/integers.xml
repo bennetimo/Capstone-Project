@@ -4,7 +4,7 @@
     <integer name="chord_picker_num_visible">8</integer>
 
     <!--Countdown Timer-->
-    <integer name="default_countdown_seconds">10</integer>
+    <integer name="default_countdown_seconds">20</integer>
     <integer name="default_leadin_seconds">3</integer>
     <integer name="target_changes">60</integer>
     <!-- Timer intervals needs to be below 1000ms to ensure the last tick is fired: http://stackoverflow.com/a/12431630/5732602 -->
